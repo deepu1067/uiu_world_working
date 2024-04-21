@@ -1,0 +1,135 @@
+{% load static %} {% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | UIU WORLD</title>
+    {% tailwind_css %}
+  </head>
+
+  <style>
+    .land {
+      background-image: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8),
+          rgba(0, 0, 0, 0.7)
+        ),
+        url("{% static 'img/2.jpg' %}");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    .land .wave {
+      margin-top: 35vh;
+    }
+    .glass {
+      /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px); */
+      border-radius: 50px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.43);
+    }
+    .login {
+      border-radius: 0px 0 0vh 70vh/40vh;
+    }
+  </style>
+  <body
+    class="font-kre text-xl flex flex-col justify-center items-center overflow-hidden"
+  >
+    <div
+      class="land relative w-full flex flex-row items-center pr-20"
+      style="height: 100vh"
+    >
+      <div class="w-2/3 h-full flex flex-col">
+        <div class="w-full h-fit flex justify-between pt-5">
+          <div id="logo" class="w-1/2 px-20">
+            <!-- <img
+              class="w-38 h-20 object-cover"
+              src="{% static 'img/logo.png' %}"
+              alt=""
+            /> -->
+          </div>
+        </div>
+        <div class="w-full h-full flex px-20 flex-row overflow-hidden">
+          <div class="w-full h-full flex text-white flex-col mt-20">
+            <div class="font-rye text-3xl w-fit">
+              <h1 style="font-size: 6rem; font-weight: bold">
+                <span style="color: #d97316">UIU</span> WORLD
+              </h1>
+            </div>
+            <div class="mt-10 h-full w-2/3 flex flex-col">
+              <p class="font-black text-md font-thin" style="font-size: 2rem">
+                Want to be a part of this world?
+              </p>
+              <div class="mt-5">
+                <a
+                  href="{% url 'signup' %}"
+                  style="
+                    border: 3px solid #d97316;
+                    padding: 5px 3rem;
+                    border-radius: 50px;
+                  "
+                  >Sign Up</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-1/3 h-4/5 bg-gradient-to-tl from-[#e3e3e3] to-[#ffe08f] rounded-3xl flex flex-col justify-center items-center"
+      >
+        <div class="w-2/3 h-3/4 flex flex-col items-center justify-center">
+          <div class="w-full h-1/4 flex flex-col">
+            <h1
+              class="font-bruno font-black text-3xl text-white w-fit p-1 bg-black"
+            >
+              Welcome Back!
+            </h1>
+            <p class="text-[#717171] text-md">
+              Login to explore your metaverse
+            </p>
+          </div>
+          <div class="w-full h-full flex flex-col">
+            <form
+              class="flex flex-col"
+              action="{% url 'validate' %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <label class="text-md text-[#717171]" for="name"
+                >Email or Student ID</label
+              >
+              <input
+                class="bg-gray-50 text-gray-900 text-sm rounded-lg w-3/4 p-2.5 mb-5 focus:ring-transparent focus:border-transparent"
+                type="text"
+                name="email"
+                id="name"
+                placeholder="absc@bsabc.uiu.ac.bd"
+              />
+              <label class="text-md text-[#717171]" for="pass">Password</label>
+              <input
+                class="bg-gray-50 text-gray-900 text-sm rounded-lg w-3/4 p-2.5 focus:ring-transparent focus:border-transparent"
+                type="password"
+                name="pass"
+                id="pass"
+                placeholder="***********"
+              />
+              <a href="" class="text-sm mt-1 text-red-500 underline font-bold"
+                >Forget Password?</a
+              >
+              <input
+                class="cursor-pointer w-3/4 p-2 mt-4 bg-[#B56E00] rounded-xl shadow-xl text-white"
+                type="submit"
+                name="sub"
+                id=""
+                value="Login"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

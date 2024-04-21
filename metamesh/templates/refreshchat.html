@@ -1,0 +1,13 @@
+{% for actib in activ %} 
+{% if actib.stu_id != user.stu_id %}
+<div class="w-full h-14 rounded-2xl mt-4 flex px-8 bg-orange-300 items-center">
+  {% if actib.profpic.url != "" %}
+                        <img src="{{actib.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+
+  <h3 class="text-md font-md ml-3">{{actib.firstName}}</h3>
+</div>
+{% endif %} 
+{% endfor %}

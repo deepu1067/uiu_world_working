@@ -1,0 +1,314 @@
+{% load static %}
+{% load tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clubs | UIU-matamesh</title>
+    {% tailwind_css %}
+</head>
+<body class="overflow-hidden w-screen h-screen">
+    <div id="pops" class="absolute w-full h-full flex justify-center items-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">
+        <div class="w-2/3 h-3/4 flex bg-white rounded-3xl px-5" style="padding-top: 10px;">
+            <div class="w-1/3 h-full flex flex-col">    
+                <div class="w-full flex justify-center items-center bg-gray-100 rounded-3xl" style="height: 10vh;">
+                    <p class="text-2xl font-bold">Chats</p>
+                </div>
+                <div id="listdiv" class="w-full h-5/6 flex flex-col items-center rounded-2xl">
+                    {% for sts in all %}
+                    {% if sts != obj %}
+                    <div onclick="popmsgg('{{sts.stu_id}}', '{{sts.firstName}}', '{{sts.lastName}}')" class="w-full rounded-2xl mt-4 flex bg-orange-300 items-center px-8" style="height: 6vh;">
+                        {% if sts.profpic.url != "" %}
+                            <img src="{{sts.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                        {% else %}
+                            <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                        {% endif %}
+                        <p class="ml-4">{{sts.firstName|add:" "|add:sts.lastName}}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="w-2/3 h-full flex">
+                <div class="w-full h-full flex flex-col px-4" style="padding-bottom: 3vh;">   
+                    <div class="w-full bg-gray-100 flex flex-col justify-center px-8 rounded-2xl" style="height: 8vh;">
+                        <p class="text-xl" id="nn"></p>
+                        <p>Active now</p>
+                    </div>
+                    <div class="w-full h-full flex flex-col" style="padding: 2vh 0 0 0;">
+                        <div id="showmsg" class="w-full flex flex-col" style="height: 54vh;">
+
+                        </div>
+                        <div class="w-full h-20">
+                            <div class="w-full h-full flex justify-between">
+                                <input type="text" name="msg" id="msgg" placeholder="Enter message" class="flex justify-center w-3/4 h-3/4 rounded-3xl">
+                                <button class="bg-orange-300 rounded-2xl w-1/4 h-3/4 ml-3" data-crf ='{% csrf_token %}' id="sendbtn" onclick="sendmsg()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="club" class="absolute w-full h-full flex flex-col items-center" style="display: none;">
+        <div class="bg-white rounded-xl mt-10 px-20 flex flex-col items-center" style="width: 50%; height: 80%; margin-left: 25%;">
+            <h3 class="text-3xl font-bold mt-5 mb-1">Create Your Club</h3>
+            <h3>Give information of the club below</h3>
+
+            <div class="w-full h-full mt-20">
+                <form class="w-full h-full flex" method="POST" action="{% url 'addclub' user=enp %}">
+                    {% csrf_token %}
+                    <div class="w-1/2 h-full flex flex-col" >
+                        <label for="cname">Club name</label>
+                        <input type="text" class="rounded-xl" name="cname" id="cname" placeholder="Enter Club Name">
+                        <label class="mt-4" for="ctype"> Choose type</label>
+                        <select name="ctype" class="rounded-xl" id="ctype">
+                            <option value="sports">Sports</option>
+                            <option value="cultural">Cultural</option>
+                            <option value="education">Education</option>
+                            <option value="robotics">Robotics</option>
+                            <option value="contest">Contest</option>
+
+                        </select>
+                        <label class="mt-4" for="purpose">Club purpose</label>
+                        <textarea class="text-md rounded-xl" name="purpose" id="purpose" cols="10" rows="6" style="resize: none;"></textarea>
+
+                        <label class="mt-4" for="rules">Rules and Regulations</label>
+                        <textarea class="text-md rounded-xl" name="rules" id="rules" cols="10" rows="6" style="resize: none;"></textarea>
+                    </div>
+                    <div class="w-1/2 h-full flex flex-col" style="margin-left: 4%;">
+                        <div class="w-full flex flex-col h-fit text-xl ">
+                            <label for="" >Who are you?</label>
+                            <div class="flex w-full items-center">
+                                <input type="radio" onclick="ad()" name="admin" id="admin" value="Admin" checked>
+                                <label for="admin" class="ml-1">Admin</label>
+                                <input type="radio" onclick="notad()" class="ml-5" name="admin" id="nadmin" value="Not Admin">
+                                <label for="admin" class="ml-1">Not admin</label>
+                            </div>
+                        </div>
+                        <label for="name" class="mt-4">Admin name</label>
+                        <input class="rounded-xl" type="text" name="adminname" id="name" placeholder="Admin Name" disabled>
+                        <label for="id" class="mt-4">Admin email/Student ID</label>
+                        <input class="rounded-xl" type="text" name="adminmail" id="id" placeholder="Admin email or Student ID" disabled>
+                        <label for="accep" class="font-bold mt-4">Are you agree with us?</label>
+                        <div class="w-fit h-fit flex mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M11,16.4l-4.7-4.7l1.4-1.4l3.3,3.3l8.4-8.4C17.5,3.3,14.9,2,12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10 c0-1.9-0.5-3.6-1.4-5.1L11,16.4z"></path>
+                            </svg>
+                            <h3 class="ml-2">The club is not for commercial purposes.</h3>
+                        </div>
+                        <div class="w-fit h-fit flex mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M11,16.4l-4.7-4.7l1.4-1.4l3.3,3.3l8.4-8.4C17.5,3.3,14.9,2,12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10 c0-1.9-0.5-3.6-1.4-5.1L11,16.4z"></path>
+                            </svg>
+                            <h3 class="ml-2">Try to keep maintain a good bonding among members</h3>
+                        </div>
+                        <div class="w-fit h-fit flex mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M11,16.4l-4.7-4.7l1.4-1.4l3.3,3.3l8.4-8.4C17.5,3.3,14.9,2,12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10 c0-1.9-0.5-3.6-1.4-5.1L11,16.4z"></path>
+                            </svg>
+                            <h3 class="ml-2">Any kind of vulgar content should not be allowed.</h3>
+                        </div>
+                        <div class="w-fit h-fit flex mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M11,16.4l-4.7-4.7l1.4-1.4l3.3,3.3l8.4-8.4C17.5,3.3,14.9,2,12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10 c0-1.9-0.5-3.6-1.4-5.1L11,16.4z"></path>
+                            </svg>
+                            <h3 class="ml-2">Check the members identity before approval.</h3>
+                        </div>
+                        <div class="w-fit h-fit flex mt-2 items-center">
+                            <input type="checkbox" name="agree" id="">
+                            <h3 class="ml-2">I am agree with the conditions.</h3>
+                        </div>
+                        <div class="w-full h-fit flex justify-end px-1 mt-8">
+
+                            <input class="w-full h-14 bg-green-500 flex justify-center items-center" type="submit" name="sub" id="" value="Create Group">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-24 flex items-center ">
+        <div class="w-1/4 h-full flex items-center pl-9">
+            <h1 style="font-size: 2rem; font-weight: bold">
+                <span style="color: #d97316">UIU</span> WORLD
+              </h1>
+            
+        </div>
+        <div class="w-2/4 h-full flex px-40">
+            <a href="{% url 'dashb' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"/>
+                  </svg>
+                <h3>Home</h3>
+            </a>
+            <a onclick="popupmsg()" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                    <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
+                  </svg>
+                <h3>Messages</h3>
+            </a>
+            <a href="{% url 'notice' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+
+                <h3>Notice</h3>
+            </a>
+            <a href="{% url 'club' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
+                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z"/>
+                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                  </svg>
+                <h3>Club</h3>
+            </a>
+        </div>
+        <div class="w-1/4 h-full flex justify-end items-center px-12">
+            
+            {% if obj.profpic.url != "" %}
+                <img src="{{obj.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+            {% else %}
+                <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+            {% endif %}
+            <a href="{% url 'logout' user=obj.stu_id %}">
+                <div class="h-full flex flex-col justify-center items-center">
+                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
+                    </svg>
+                    <h3>Logout</h3>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <div class="w-full h-full bg-gray-100 flex flex-col px-20">
+        <div class="w-full h-20 flex justify-end items-center">
+            <button onclick="ppup()" class=" mt-5 w-1/5 h-3/4 bg-orange-300 flex justify-center items-center rounded-2xl text-md font-bold">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
+                </svg>
+                <h3 class="ml-5">Create Club</h3>
+            </button>
+        </div>
+        <div class="w-full h-full flex flex-col overflow-y-auto mt-3">
+            <div class="w-3/4 h-fit flex flex-col mb-5">
+                <h3 class="text-3xl font-bold">Clubs</h3>
+                <h3 class="text-md ">Manage and access all of your clubs from here.</h3>
+            </div>
+
+            {% for c in club %}
+            <div class="w-3/4 mt-6 flex items-center px-20 rounded-2xl h-1/5 bg-gray-300">
+                <img src="" alt="" class="rounded-full bg-orange-300" style="width: 150px ; height: 150px;">
+                <div class="w-2/3 h-full flex justify-center flex-col ml-8">
+                    <h3 class="text-4xl font-bold">{{c.clubname}}</h3>
+                    <h3>{{c.purpose}}</h3>
+                </div>
+                {% if c.adminid == obj %}
+                <a id="{{c.clubname}}" href="{% url 'cdash' user=enp club=c.clubname %}" class="w-1/6 h-1/3 ml-8 flex justify-center items-center text-2xl text-white rounded-2xl" style="background-color: blue;">Enter</a>
+                {% else %}
+                <a id="{{c.clubname}}" href="{% url 'approval' user=enp club=c.clubname %}" class="w-1/6 h-1/3 bg-green-500 ml-8 flex justify-center items-center text-2xl text-white rounded-2xl">Join</a>
+                {% endif %}
+            
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        var csrf = "{{ csrf_token }}" ;
+        let idd = document.getElementById('club');
+        let admin = document.getElementById('admin');
+        let nadmin = document.getElementById('nadmin');
+        let aid = document.getElementById('id') ;
+        let aname = document.getElementById('name') ;
+        let sortt = JSON.parse('{{sort|escapejs}}') ;
+        console.log(sortt)
+        for (var i = 0; i<sortt.length; i++) {
+            if (sortt[i].studentss_id !=sortt[i].admin && sortt[i].status != 'Joined' ) {
+
+                document.getElementById(sortt[i].clubid_id).innerHTML = sortt[i].status ;
+                document.getElementById(sortt[i].clubid_id).style.backgroundColor = "orange" ;
+                document.getElementById(sortt[i].clubid_id).style.pointerEvents = "none" ;
+            }
+            else if(sortt[i].studentss_id ==sortt[i].admin || sortt[i].status == "Joined" ) {
+                var url = "{% url 'cdash' user=enp club='__clubid__' %}".replace("__clubid__", sortt[i].clubid_id );
+                document.getElementById(sortt[i].clubid_id).innerHTML = "Enter" ;
+                document.getElementById(sortt[i].clubid_id).style.backgroundColor = "blue" ;
+                document.getElementById(sortt[i].clubid_id).href = url ;
+                document.getElementById(sortt[i].clubid_id).disabled = false ;
+            }
+
+        }
+        function ad() {
+            
+            aid.disabled = true;
+            aname.disabled = true;
+        }
+        function notad() {
+            console.log('not admin') ;
+            aid.disabled = false;
+            aname.disabled = false;
+        }
+
+        function ppup() {
+            idd.style.display = "block" ;
+        }
+
+        let llb = document.getElementById("nn");
+        let __idd = "" ;
+        function popmsgg(idd, fname, lname) {
+            llb.innerHTML = fname + " " + lname;
+            __idd = idd;
+        }
+
+        let msgbox = document.getElementById('msgg') ;
+
+        function sendmsg() {
+            
+            var ccss = document.getElementById('sendbtn').getAttribute('data-crf');
+            console.log(csrf) ;
+            let __msg = msgbox.value ;
+            msgbox.value = "" ;
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'sendmsg' user=enp %}",
+                data: {
+                    csrfmiddlewaretoken: csrf,
+                    tousr: __idd,
+                    msg: __msg
+                },
+                success: function() {
+                    console.log("Sned successfully") ;
+                }
+            });
+            
+        }
+
+        function popupmsg() {
+            document.getElementById("pops").style.display = "flex" ;
+            setInterval(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'getmsg' user=enp %}",
+                    dataType:'html',
+                    data:{
+                        to_id: __idd,
+                    },
+                    success: function(res) {
+                        $('#showmsg').html(res) ;
+                    },
+                });
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

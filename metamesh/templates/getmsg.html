@@ -1,0 +1,17 @@
+{% for msg in msgs%}
+
+    {% if msg.sender == user %}
+    <div class="w-full h-fit text-xl flex items-center justify-end " style="height: 4vh; ">
+        <p class="px-10 bg-gray-100 rounded-2xl">{{msg.msg}}</p>
+    </div>
+    {% else %}
+    <div class="w-full h-fit text-xl flex items-center  px-10">
+        {% if msg.sender.profpic.url != "" %}
+                        <img src="{{msg.sender.profpic.url}}" alt="" class="object-cover rounded-full w-10 h-10" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+        <p class="px-10 bg-orange-100 rounded-2xl">{{msg.msg}}</p>
+    </div>
+    {% endif %}
+{% endfor %}

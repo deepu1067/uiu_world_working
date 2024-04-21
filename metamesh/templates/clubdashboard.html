@@ -1,0 +1,303 @@
+{% load static %}
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% tailwind_css %}
+</head>
+<style>
+    input[type="file"] {
+        display: none;
+    }
+
+    .img {
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 12px;
+        cursor: pointer;
+        color: #d89e21;
+        border-radius: 5vh;
+    }
+
+    #hover:hover{
+        font-size: large;
+    }
+
+</style>
+<body class="overflow-hidden w-screen h-screen">
+    <div id="details" class=" absolute w-full h-full flex items-center justify-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">    
+        <div class=" bg-white w-1/2 h-2/3 flex flex-col rounded-xl">
+            <div class="w-full h-20 flex justify-center items-center font-bold text-2xl">
+                <h3>Event Details</h3>   
+            </div>
+            <div id="container" class="w-full h-full px-20 flex flex-col items-center font-bold text-2xl">
+                
+                
+            </div>
+            
+        </div>
+
+    </div>
+    <div id="event" class=" absolute w-full h-full flex items-center justify-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">    
+        <div class=" bg-white w-1/2 h-2/3 flex flex-col rounded-xl">
+            <div class="w-full h-20 flex justify-center items-center font-bold text-2xl">
+                <h3>Event Details</h3>   
+            </div>
+            <form method="post" action="{% url 'createevent' user=enp club=clbname %}" enctype="multipart/form-data" class=" w-full h-full flex flex-col text-md">
+                {% csrf_token %}
+                <div class="w-full h-fit flex justify-center items-center px-20">
+
+                    <label for="image" class="img font-bold mb-2 w-full">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" style="margin-right: 9px;" viewBox="0 0 16 16">
+                            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                        </svg>
+                        Insert an event image banner
+                    </label>
+                    <input type="file" name="img" id="image">
+
+                </div>
+
+                <div class="w-2/3 h-fit flex flex-col px-20">
+                    <label for="name" class="mb-2 font-bold">Event Name</label>
+                    <input class="rounded-xl mb-2" type="text" name="ename" id="" placeholder="Event Name">
+                    <label class="mb-2 font-bold" for="cat">Event Category</label>
+                    <select class="rounded-xl mb-2" name="cate" id="cat">
+                        <option value="educational">Education</option>
+                        <option value="contest">Contest</option>
+                        <option value="functional">Functional</option>
+                        <option value="orientation">Orientation</option>
+
+                    </select>
+                    <label for="name" class="mb-2 font-bold">Event timespan</label>
+                    <div class="w-full h-fit flex justify-between">
+                        
+
+                        <input class="rounded-xl mb-2 w-1/3" type="date" name="sdate" id="" placeholder="Event Name">
+                        
+                        <input class="rounded-xl mb-2 w-1/3" type="date" name="edate" id="" placeholder="Event Name">
+                        
+                    </div>
+                    <label class="font-bold" for="">Event Details</label>
+                    <textarea name="details" class="rounded-xl mt-2" id="" cols="30" rows="7" style="resize: none;"></textarea>
+                    <div class="w-full flex justify-end">
+                        <input type="submit" name="sub" id="" value="Create" class="w-1/3 mt-4 bg-orange-300" style="height: 4vh;">
+                    </div>
+                </div>
+
+                
+                
+
+            </form>
+        </div>
+
+    </div>
+    <div id="pop" class="absolute w-full h-full flex items-center justify-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">
+        <div class="bg-gray-100 flex flex-col rounded-2xl" style="height: 55%; width: 30%;">
+            <div class="w-full h-20 mt-3 flex justify-center items-center">
+                <h3 class="font-bold text-3xl">Create Post</h3>
+            </div>
+            <form action="{% url 'phandle' user=enp club=clbname %}" method="POST" class="flex flex-col items-center">
+                {% csrf_token %}
+                <textarea class="mt-4 px-10" name="texts" id="" cols="50" rows="15" style="resize: none; border:none"></textarea>
+                <div class="w-full flex text-2xl mt-4 justify-end px-10">
+
+                    <input class=" rounded-xl w-1/3 bg-orange-400" style="height: 5vh;" type="submit" name="sub" id="" value="Post">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="w-full h-full flex ">
+        <div class="w-2/3 h-full flex flex-col">
+            <img src="{% static 'img/uiu.jpg' %}" alt="" class="mt-5 object-cover bg-center  w-full h-1/4 rounded-2xl">
+            <h3 class="w-full text-3xl font-bold mt-8 ml-8 bg-orange-100">All Posts</h3>
+            <div class="w-full h-3/4 mt-5 flex flex-col items-center" style="padding: 0 20vh 0 20vh">
+                <div class="flex w-full justify-center items-center rounded-xl bg-gray-100" style="height: 8vh;">
+                    {% if obj.profpic.url != "" %}
+                        <img src="{{obj.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+                    <button class="w-2/3 ml-3 pl-8 text-gray-300 bg-transparent flex items-center rounded-2xl" style="height: 5vh; border: 1px solid #0c0c0ccc" onclick="popup()">Share your thoughts</button>
+                </div>
+
+                {% for posts in cpost %}
+                <div class="w-full h-fit flex flex-col rounded-2xl bg-orange-100 px-8 mt-6 mb-2">
+                    <div class="w-full h-20 flex items-center">
+                        {% if posts.student.profpic.url != "" %}
+                        <img src="{{posts.student.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+                        <div class="w-2/3 h-fit flex flex-col">
+                            <h3 class="ml-2 text-md font-bold">{{posts.student.firstName|add:" "|add:posts.student.lastName}}</h3>
+                            <h3 class="ml-2">{{posts.student.batch}}</h3>
+                        </div>
+                    </div>
+                    <div class="w-full h-fit mt-2 mb-6">
+                        <p>{{posts.texts}}</p>
+                    </div>
+                    
+                    <div class="w-full h-10 flex mb-5 justify-center items-center">
+                        <div class="w-1/2 h-full flex">
+                            <button id="{{posts.iid}}" data-clubid = "{{clbname}}" data-csrf='{% csrf_token %}' data-student="{{enp}}" data-post="{{posts.iid}}" class="vote w-full h-full flex items-center justify-center rounded-2xl hover:text-orange-500 hover:font-bold focus:bg-orange-300">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.008 8.714c1-.097 1.96-.45 2.792-1.028a25.112 25.112 0 0 0 4.454-5.72 1.8 1.8 0 0 1 .654-.706 1.742 1.742 0 0 1 1.65-.098 1.82 1.82 0 0 1 .97 1.128c.075.248.097.51.065.767l-1.562 4.629M4.008 8.714H1v9.257c0 .273.106.535.294.728a.99.99 0 0 0 .709.301h1.002a.99.99 0 0 0 .71-.301c.187-.193.293-.455.293-.728V8.714Zm8.02-1.028h4.968c.322 0 .64.08.925.232.286.153.531.374.716.645a2.108 2.108 0 0 1 .242 1.883l-2.36 7.2c-.288.813-.48 1.354-1.884 1.354-2.59 0-5.39-1.06-7.504-1.66"/>
+                                </svg>
+                                <h3 class="ml-2">Upvote</h3>
+                            </button>
+                        </div>
+                        <div class="w-1/2 h-full">
+                            <button class="w-full h-full flex justify-center items-center hover:text-orange-500">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+                                </svg>
+                                <h3 class="ml-2">Comment</h3>
+                            </button>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="w-1/3 h-full flex flex-col">
+            <div class="h-1/2 w-full flex">
+                <div class="flex flex-col w-1/2 h-full overflow-y-auto">
+                    <h3 class="text-xl font-bold mt-8 ml-8">All members</h3>
+                    {% for join in joined%}
+                    <div class="mt-1 w-full h-fit flex flex-col px-8">
+                        <div class="mt-3 w-full flex items-center" style="height: 7vh;">
+                            {% if join.studentss.profpic.url != "" %}
+                        <img src="{{join.studentss.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+                            <h3 class="ml-5">{{join.studentss.firstName|add:" "|add:join.studentss.lastName}}</h3>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="flex flex-col w-1/2 h-full overview-y-auto">
+                    <h3 class="text-xl font-bold mt-8 ml-8">Pending Requests</h3>
+                    {% for pend in pendings %}
+                    <div class="mt-3 w-full h-fit flex justify-center items-center px-8">
+                        <div class=" w-full flex items-center" style="height: 7vh;">
+                            {% if pend.studentss.profpic.url != "" %}
+                        <img src="{{pend.studentss.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+                            <h3 class="ml-3">{{pend.studentss.firstName}}</h3>
+                        </div>
+                        <a class="px-2 bg-orange-100" href="{% url 'doapprove' club=pend.clubid.clubname student=pend.studentss.stu_id %}">Approve</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="h-1/2 w-full flex flex-col">
+                <div class="w-full px-8 flex items-center justify-between" style="height: 7vh;">
+                    <h3 class="h-fit text-xl font-bold">Upcoming Events</h3>
+                    <button onclick="popevent()" id="hover" class="flex w-1/3 h-1/2 justify-center items-center" style="margin-left: 13vh; color: rgb(19, 22, 199);">
+                        Create new event
+                    </button>
+                </div>
+                <div class="w-full h-full flex flex-col px-8 mt-3 overflow-y-auto">
+                    {% for eve in events %}
+                    <div class="w-full h-1/2 flex flex-col px-6 shadow-2xl rounded-xl">
+                        <img src="{{ eve.bannerImg.url }}" alt="" class="object-cover w-full bg-white mt-2 rounded-2xl" style="height:5vh;">
+                        <h3 class="font-bold text-3xl mt-2" style="color: gray;">{{eve.name}}</h3>
+                        <div class="w-full h-1/3 flex justify-between mt-1" style="color: rgb(109, 109, 109);">
+                            <div class="flex w-fit h-fit items-center">
+                                <label for="sd" class="font-bold text-xl">Start:</label>
+                                <h3 class="ml-2">{{eve.stime}}</h3>
+                            </div>
+                            <div class="flex items-center w-fit h-fit">
+                                <label for="ed" class="font-bold text-xl">End:</label>
+                                <h3 class="ml-2">{{eve.etime}}</h3>
+                            </div>
+                        </div>
+                        <div class="flex w-full h-1/2 justify-end" style="margin-bottom: 2vh;">
+                            <button onclick="viewdetails('{{eve.name}}')" class="w-1/2 h-full rounded-xl justify-center items-center text-white text-xl" style="background-color: rgb(40, 77, 110);">View Details</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function popup() {
+            document.getElementById('pop').style.display = "flex";
+        }
+
+        $(document).ready(function() {
+            $('.vote').on ('click', function() {
+                let club = $(this).data('clubid');
+                let student = $(this).data('student') ;
+                let post = $(this).data('post');
+                let csrf = $('[name=csrfmiddlewaretoken]').val();
+                $(this).css('background', 'orange') ;
+                console.log(club) ;
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'likeclubpost' %}",
+                    data:{
+                        clubid:club,
+                        studentid:student,
+                        postid:post,
+                        csrfmiddlewaretoken:csrf,
+                    },
+                    success: function() {
+                        console.log("HELLO") ;
+                    }
+                });
+
+            });
+        });
+
+        let likes = JSON.parse("{{clikes|escapejs}}") ;
+
+        for (var i =0; i<likes.length; i++) {
+            console.log(likes[i]);
+            if (likes[i].student_id == "{{obj.stu_id}}") {
+                document.getElementById(likes[i].post_id).style.backgroundColor = "orange";
+                document.getElementById(likes[i].post_id).disabled = true;
+            }
+        }
+
+        let eve = document.getElementById('event') ;
+        function popevent() {
+            eve.style.display = "flex";
+        }
+
+        function viewdetails(str) {
+            let eventt = document.getElementById('details') ;
+            eventt.style.display = "flex" ;
+
+            $.ajax({
+                type: "GET",
+                url: "{% url 'vdetails' user=enp %}",
+                data: {
+                    event: str,
+                },
+                success: function(res) {
+                    $('#container').html(res) ;
+                }
+            });
+        }
+        
+
+    </script>
+</body>
+</html>
