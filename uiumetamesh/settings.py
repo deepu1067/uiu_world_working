@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'compressor',
     'tailwind',
     'theme',
+    'api'
 ]
 
 MIDDLEWARE = [

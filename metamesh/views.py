@@ -166,30 +166,22 @@ def categorize(req, user):
 
 #darain
 def notice(req, user):
+    notices = []
+    # response = requests.get("http://127.0.0.1:8000/api/notice/")
+    # if response.status_code == 200:
+    #     notices = response.json()
+    # else:
+    #     notices = [{
+    #         "response": False
+    #     }]
 
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id = dumm)
-    noticee = []
-    linkss = []
-    for i in range(0, 3):
-        reqs = requests.get("https://www.uiu.ac.bd/notices/page/"+str(i))
-        soup = BeautifulSoup(reqs.content, "html.parser")
-        for links in soup.find_all("article"):
-            headrs = links.find('header')
-            h2 = headrs.find("h2")
-            a = h2.find("a")
-            # print(a.get("href"))
-            linkss.append(a.get("href"))
-            noticee.append(h2.text)
-
-        zipit = zip(linkss, noticee)
-        print(zipit)
-    
     alls = students.objects.all()
     data = {
         'user':obj,
         'enp':user,
-        'zip':zipit,
+        'notices':notices,
         'all': alls,
     }
     return render(req, "notice.html", data)
