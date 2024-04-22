@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 # Create your views here.
 
-key = '011201171'
+key = '011201041'
 def indexPage(req):
     return render(req, "index.html") 
 
@@ -478,4 +478,15 @@ def jobDetails(req, user):
 
 
 def achievements_view(request, user):
-    return render(request, 'achievement.html', {'enp': user})
+
+    dumm = signing.loads(user, key=key)
+    obj = students.objects.get(stu_id = dumm)
+
+    alls = students.objects.all()
+    
+    data = {
+        'user':obj,
+        'enp':user,
+        'all': alls,
+    }
+    return render(request, 'achievement.html', data)

@@ -10,7 +10,7 @@
     <title>Clubs | UIU-matamesh</title>
     {% tailwind_css %}
     <style>
-        .in-view-visible {
+        /* .in-view-visible {
             transition: ease-in-out 1s;
             opacity: 1;
             transform: translateY(0);
@@ -19,20 +19,21 @@
         .in-view-hidden {
             opacity: 0;
             transform: translateY(50px);
+        } */
+
+
+        .orange-gradient-wrapper {
+            background: linear-gradient(to right, #F89132, rgba(255, 0, 0, 0));
+            padding: 20px;
+            /* Adjust padding as needed */
         }
 
-       
-        .orange-gradient-wrapper {
-            background: linear-gradient(to right, #F89132, rgba(255,0,0,0));
-            padding: 20px; /* Adjust padding as needed */
-        }
         .orange-gradient-wrapper h1 {
-            margin: 0; /* Remove default margin for h1 */
+            margin: 0;
+            /* Remove default margin for h1 */
         }
-        
-        
     </style>
-    
+
 
 </head>
 
@@ -111,7 +112,7 @@
                 </svg>
                 <h3>Messages</h3>
             </a>
-            <a href=""
+            <a href="{% url 'notice' user=enp %}"
                 class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-calendar3"
                     viewBox="0 0 16 16">
@@ -138,6 +139,19 @@
             </a>
         </div>
 
+        <div class="w-1/4 h-full flex justify-end items-center px-12">
+
+            <img src="" alt="" class="w-12 h-12 mr-4 rounded-full bg-black">
+            <a href="{% url 'logout' user=user.stu_id %}">
+                <div class="h-full flex flex-col justify-center items-center">
+                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
+                    </svg>
+                    <h3>Logout</h3>
+                </div>
+            </a>
+        </div>
+
     </div>
 
     <!-- Banner section -->
@@ -161,48 +175,52 @@
         <div class="flex flex-wrap justify-between mx-8" style="gap: 40px;">
             <!-- Repeat this div to create four cards -->
             <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2">
+                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
                 <div class="flex flex-col justify-center items-center h-full">
                     <div class="orange-gradient-wrapper w-full ">
                         <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
                     </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                 </div>
             </div>
             <!-- Repeat this div to create four cards -->
             <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2">
+                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
                 <div class="flex flex-col justify-center items-center h-full">
                     <div class="orange-gradient-wrapper w-full ">
                         <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
                     </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                 </div>
             </div>
             <!-- Repeat this div to create four cards -->
             <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2">
+                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
                 <div class="flex flex-col justify-center items-center h-full">
                     <div class="orange-gradient-wrapper w-full ">
                         <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
                     </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                 </div>
             </div>
             <!-- Repeat this div to create four cards -->
             <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2">
+                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
                 <div class="flex flex-col justify-center items-center h-full">
                     <div class="orange-gradient-wrapper w-full ">
                         <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
                     </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    
+
+
 
 </body>
 
@@ -228,6 +246,58 @@
         const banner = document.querySelector(".banner");
         inViewVisibility(banner);
     });
+
+    let llb = document.getElementById("nn");
+    let __idd = "";
+    function popmsgg(idd, fname, lname) {
+        llb.innerHTML = fname + " " + lname;
+        __idd = idd;
+    }
+
+    let msgbox = document.getElementById('msgg');
+
+    function sendmsg() {
+
+        var ccss = document.getElementById('sendbtn').getAttribute('data-crf');
+        console.log(csrf);
+        let __msg = msgbox.value;
+        msgbox.value = "";
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'sendmsg' user=enp %}",
+            data: {
+                csrfmiddlewaretoken: csrf,
+                tousr: __idd,
+                msg: __msg
+            },
+            success: function () {
+                console.log("Sned successfully");
+            }
+        });
+
+    }
+
+    function popupmsg() {
+        document.getElementById("pops").style.display = "flex";
+        setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'getmsg' user=enp %}",
+                dataType: 'html',
+                data: {
+                    to_id: __idd,
+                },
+                success: function (res) {
+                    $('#showmsg').html(res);
+                },
+            });
+        }, 1000);
+    }
+
+
+
+
 </script>
 
 
