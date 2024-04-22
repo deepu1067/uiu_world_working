@@ -475,3 +475,7 @@ def jobDetails(req, user):
         'user': user,
     }
     return render(req, 'jobs.html', dat)
+
+
+def achievements_view(request, user):
+    return render(request, 'achievement.html', {'enp': user})

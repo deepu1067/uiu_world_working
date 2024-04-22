@@ -48,7 +48,8 @@ urlpatterns = [
     path('getbig/<str:user>', views.getbig, name='getbig'),
     path('profile/<str:user>', views.profile, name='profile'),
     path('vdetails/<str:user>', views.viewDetails, name='vdetails'),
-    path('jobs/<str:user>', views.jobDetails, name="jobs"),    
+    path('jobs/<str:user>', views.jobDetails, name="jobs"),
+    path('achievement/<str:user>', views.achievements_view, name='achievement')   
 
 
 ]
