@@ -1,0 +1,43 @@
+
+<div id="pops" class="absolute w-full h-full flex justify-center items-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">
+    <div class="w-2/3 h-3/4 flex bg-white rounded-3xl px-5" style="padding-top: 10px;">
+        <div class="w-1/3 h-full flex flex-col">    
+            <div class="w-full flex justify-center items-center bg-gray-100 rounded-3xl" style="height: 10vh;">
+                <p class="text-2xl font-bold">Chats</p>
+            </div>
+            <div id="listdiv" class="w-full h-5/6 flex flex-col items-center rounded-2xl">
+                {% for sts in all %}
+                {% if sts != user %}
+                <div onclick="popmsgg('{{sts.stu_id}}', '{{sts.firstName}}', '{{sts.lastName}}')" class="w-full rounded-2xl mt-4 flex bg-orange-300 items-center px-8" style="height: 6vh; cursor: pointer;">
+                    {% if sts.profpic.url != "" %}
+                    <img src="{{sts.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+                    {% else %}
+                        <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+                    {% endif %}
+                    <p class="ml-4">{{sts.firstName|add:" "|add:sts.lastName}}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="w-2/3 h-full flex">
+            <div class="w-full h-full flex flex-col px-4" style="padding-bottom: 3vh;">   
+                <div class="w-full bg-gray-100 flex flex-col justify-center px-8 rounded-2xl" style="height: 8vh;">
+                    <p class="text-xl" id="nn"></p>
+                    <p>Active now</p>
+                </div>
+                <div class="w-full h-full flex flex-col" style="padding: 2vh 0 0 0;">
+                    <div id="showmsg" class="w-full flex flex-col overflow-y-auto" style="height: 50vh;">
+
+                    </div>
+                    <div class="w-full h-20">
+                        <div class="w-full h-full flex justify-between">
+                            <input type="text" onkeydown=sendmsgEnter(event) name="msg" id="msgg" placeholder="Enter message" class="flex justify-center w-3/4 h-3/4 rounded-3xl">
+                            <button class="bg-orange-300 rounded-2xl w-1/4 h-3/4 ml-3" data-ccsrf = '{% csrf_token %}' id="sendbtn" onclick="sendmsg()" >Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

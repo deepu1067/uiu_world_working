@@ -164,26 +164,22 @@ def categorize(req, user):
     }
     return render(req, "categorize.html", data)
 
-#darain
+from django.templatetags.static import static
 def notice(req, user):
-    notices = []
-    # response = requests.get("http://127.0.0.1:8000/api/notice/")
-    # if response.status_code == 200:
-    #     notices = response.json()
-    # else:
-    #     notices = [{
-    #         "response": False
-    #     }]
-
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id = dumm)
     alls = students.objects.all()
+    img_list = ['img1', 'img2', 'img3', 'img4', 'img5', 'uiu']
+    img_urls = [static(f"img/{img}.jpg") for img in img_list]
+
+
     data = {
         'user':obj,
         'enp':user,
-        'notices':notices,
         'all': alls,
+        'images':img_urls
     }
+
     return render(req, "notice.html", data)
 
 
