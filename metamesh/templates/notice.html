@@ -77,6 +77,17 @@
         </section>
     </div>
 
+    <!-- details container -->
+    <div id = "details_cont" class="w-full h-full flex justify-center items-center" 
+                                    style="z-index: 999999; position: absolute;display: none;">
+        <div >
+            <div>
+                <!-- content append here -->
+            </div>
+            <a href="#">Read More</a>
+        </div>
+    </div>
+
     <script src="{% static 'js/app.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
@@ -85,6 +96,9 @@
     </script>
     <script>
         var imgUrls = "{{ images | safe}}";
+        var i = 0;
+        var details_data = []
+        var flag = 0; // 0: not loaded, 1: loaded
 
         var cleanedString = imgUrls.slice(2, -2);
         var imgUrls = cleanedString.split("', '");
@@ -109,6 +123,10 @@
                     if (data.length > 0 && !data[0].response) {
                         data.forEach(function(notice) {
                             var imgUrl = imgUrls[Math.floor(Math.random() * imgUrls.length)];
+                            details_data.push({
+                                "index" : i,
+                                "details" : notice.details
+                            })
 
                             month = notice.date.split(" ")[0]
                             day = notice.date.split(" ")[1]
@@ -119,10 +137,12 @@
                                         <p>${month}</p>
                                         <p>${day}</p>
                                     </div>
-                                    <p>${notice.title}</p>
+                                    <p class="details-header" id="details-header_${i}" data-detail-id="details_${i}" data-url="${notice.url}">${notice.title}</p>
+                                    <p style="display:none" id="details_${i}">${notice.details.join("###")}</p>
                                 </div>
                             `;
                             $('#notice-body').append(cardHtml);
+                            i++;
                         });
                     } else {
                         $('#notice-body').append('<div class="card"><p>No notices available.</p></div>');
@@ -136,6 +156,31 @@
         })
 
 
+        $('#notice-body').on('click', '.details-header', function() {
+            var detailId = $(this).data('detail-id'); // Get the id of the detail element
+            var details = $('#' + detailId).text(); 
+            var details_list = details.split("###")
+            // console.log(details_list)
+            var url = $(this).data('url'); 
+
+            var detailsDiv = $('#details_cont').find('div > div');
+            detailsDiv.empty();
+
+            details_list.forEach(function(detail) {
+                detailsDiv.append(`<p>${detail}</p>`);
+            });
+
+            $('#details_cont').find('a').attr('href', url).attr('target', '_blank');
+            $('#details_cont').show();
+        });
+
+        $('#details_cont').on('click', function(event) {
+            if (event.target === this) { 
+                $(this).hide();
+            }
+        });
+        
+        
         let msgbox = document.getElementById('msgg') ;
         
         function sendmsg() {
@@ -183,6 +228,8 @@
         //         document.getElementById("loading-indicator").style.display = "none";
         //     }, 7000)
         // }
+
+
     </script>
 </body>
 </html>
