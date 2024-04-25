@@ -1,5 +1,6 @@
 {% load static %}
 {% load tailwind_tags %}
+{% tailwind_css %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,29 +9,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clubs | UIU-matamesh</title>
-    {% tailwind_css %}
+
     <style>
-        /* .in-view-visible {
-            transition: ease-in-out 1s;
-            opacity: 1;
-            transform: translateY(0);
+        .info-container {
+            display: flex;
+            background-color: #FFFFFF;
+            padding: 2px;
+            border-radius: 15px;
+            width: 350px;
+            height: 70px;
+            align-items: center;
         }
 
-        .in-view-hidden {
-            opacity: 0;
-            transform: translateY(50px);
-        } */
-
-
-        .orange-gradient-wrapper {
-            background: linear-gradient(to right, #F89132, rgba(255, 0, 0, 0));
-            padding: 20px;
-            /* Adjust padding as needed */
+        .allinfo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .orange-gradient-wrapper h1 {
+
+
+
+
+
+        /* JournalComponent.css */
+        .journal-container {
+            display: flex;
+            gap: 40px;
+            margin-left: 160px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+
+        .journal-item,
+        .conference-item,
+        .research-item,
+        .advance-item {
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #F0F0F0;
+            border-radius: 10px;
+            height: 350px;
+        }
+
+
+
+        .logo {
+            width: 40px;
+            /* Adjust the size of the logo */
+            height: 40px;
+            /* Adjust the size of the logo */
+            border-radius: 50%;
+            /* Make the logo circular */
+            overflow: hidden;
+            /* Hide any overflow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .details {
+            margin-left: 10px;
+
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+
+        }
+
+        .details p {
             margin: 0;
-            /* Remove default margin for h1 */
+            /* Adjust the spacing between paragraphs */
+        }
+
+        .gradient-background {
+            background: linear-gradient(to bottom right, #ffcc00, #ff6699);
+            /* Adjust the gradient colors */
+            color: #000000;
+            text-align: center;
+            font-weight: 600;
+            font-size: 30px;
+            height: 50px;
         }
     </style>
 
@@ -144,8 +210,10 @@
             <img src="" alt="" class="w-12 h-12 mr-4 rounded-full bg-black">
             <a href="{% url 'logout' user=user.stu_id %}">
                 <div class="h-full flex flex-col justify-center items-center">
-                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
+                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9"
+                            d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
                     </svg>
                     <h3>Logout</h3>
                 </div>
@@ -170,57 +238,77 @@
         </div>
     </div>
 
+    <div class="journal-container">
+        <div class="journal-item">
+            <div class="gradient-background">
+                <p>Journal Paper</p>
+            </div>
+            <div class='allinfo'>
+                <div class="info-container">
+                    <!-- <div class="logo">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div> -->
+                    <div class="details">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, dolore!</p>
+                    </div>
+                </div>
 
-    <div class="mt-8 flex justify-center">
-        <div class="flex flex-wrap justify-between mx-8" style="gap: 40px;">
-            <!-- Repeat this div to create four cards -->
-            <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
-                <div class="flex flex-col justify-center items-center h-full">
-                    <div class="orange-gradient-wrapper w-full ">
-                        <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
-                    </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                </div>
             </div>
-            <!-- Repeat this div to create four cards -->
-            <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
-                <div class="flex flex-col justify-center items-center h-full">
-                    <div class="orange-gradient-wrapper w-full ">
-                        <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
-                    </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                </div>
+        </div>
+
+
+        <div class="journal-item">
+            <div class="gradient-background">
+                <p>Conference Paper</p>
             </div>
-            <!-- Repeat this div to create four cards -->
-            <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
-                <div class="flex flex-col justify-center items-center h-full">
-                    <div class="orange-gradient-wrapper w-full ">
-                        <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
+            <div class='allinfo'>
+                <div class="info-container">
+                    <!-- <div class="logo">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div> -->
+                    <div class="details">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, ullam.</p>
+
                     </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-                </div>
-            </div>
-            <!-- Repeat this div to create four cards -->
-            <div class="bg-gray-300 rounded-lg shadow-md p-4 mb-8" style="width: 260px; height: 320px;">
-                <!-- <img src="{% static 'img/card1.png' %}" alt="Logo" class="h-8 w-8 absolute top-0 left-0 mt-2 ml-2"> -->
-                <div class="flex flex-col justify-center items-center h-full">
-                    <div class="orange-gradient-wrapper w-full ">
-                        <h1 class="text-gray-800 text-lg font-bold mb-4">Conference Paper Writing</h1>
-                    </div>
-                    <p class="text-gray-700 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
-                        perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                 </div>
             </div>
         </div>
+
+        <div class="journal-item">
+            <div class="gradient-background">
+                <p>Research Project</p>
+            </div>
+            <div class='allinfo'>
+                <div class="info-container">
+                    <!-- <div class="logo">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div> -->
+                    <div class="details">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eaque.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="journal-item">
+            <div class="gradient-background">
+                <p>Advance Project</p>
+            </div>
+            <div class='allinfo'>
+                <div class="info-container">
+                    <!-- <div class="logo">
+                            <FontAwesomeIcon icon={faUser} />
+                        </div> -->
+                    <div class="details">
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. A, repellat.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-
-
 
 </body>
 
