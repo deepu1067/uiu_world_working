@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from metamesh import views
 from django.conf import settings  
 from django.conf.urls.static import static 
@@ -49,9 +49,8 @@ urlpatterns = [
     path('profile/<str:user>', views.profile, name='profile'),
     path('vdetails/<str:user>', views.viewDetails, name='vdetails'),
     path('jobs/<str:user>', views.jobDetails, name="jobs"),
-    path('achievement/<str:user>', views.achievements_view, name='achievement')   
-
-
+    path('achievement/<str:user>', views.achievements_view, name='achievement'),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:

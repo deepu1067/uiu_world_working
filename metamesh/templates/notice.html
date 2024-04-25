@@ -7,55 +7,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
     {% tailwind_css %}
 </head>
 <body class="w-screen h-screen overflow-hidden flex flex-col">
-    <div id="pops" class="absolute w-full h-full flex justify-center items-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">
-        <div class="w-2/3 h-3/4 flex bg-white rounded-3xl px-5" style="padding-top: 10px;">
-            <div class="w-1/3 h-full flex flex-col">    
-                <div class="w-full flex justify-center items-center bg-gray-100 rounded-3xl" style="height: 10vh;">
-                    <p class="text-2xl font-bold">Chats</p>
-                </div>
-                <div id="listdiv" class="w-full h-5/6 flex flex-col items-center rounded-2xl">
-                    {% for sts in all %}
-                    {% if sts != user %}
-                    <div onclick="popmsgg('{{sts.stu_id}}', '{{sts.firstName}}', '{{sts.lastName}}')" class="w-full rounded-2xl mt-4 flex bg-orange-300 items-center px-8" style="height: 6vh;">
-                        {% if sts.profpic.url != "" %}
-                            <img src="{{sts.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
-                        {% else %}
-                            <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
-                        {% endif %}
-                        <p class="ml-4">{{sts.firstName|add:" "|add:sts.lastName}}</p>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="w-2/3 h-full flex">
-                <div class="w-full h-full flex flex-col px-4" style="padding-bottom: 3vh;">   
-                    <div class="w-full bg-gray-100 flex flex-col justify-center px-8 rounded-2xl" style="height: 8vh;">
-                        <p class="text-xl" id="nn"></p>
-                        <p>Active now</p>
-                    </div>
-                    <div class="w-full h-full flex flex-col" style="padding: 2vh 0 0 0;">
-                        <div id="showmsg" class="w-full flex flex-col" style="height: 54vh;">
 
-                        </div>
-                        <div class="w-full h-20">
-                            <div class="w-full h-full flex justify-between">
-                                <input type="text" name="msg" id="msgg" placeholder="Enter message" class="flex justify-center w-3/4 h-3/4 rounded-3xl">
-                                <button class="bg-orange-300 rounded-2xl w-1/4 h-3/4 ml-3" data-crf ='{% csrf_token %}' id="sendbtn" onclick="sendmsg()">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- start message pop -->
+    {% include 'message.html' %}
+    <!-- end message pop -->
+
     <div class="w-full h-24 flex items-center ">
         <div class="w-1/4 h-full flex items-center pl-9">
-            <!-- <img src="{% static 'img/logo.png' %}" alt="" class="h-15 w-20"> -->
-            
+            <h2 class="font-bold text-4xl">UIU <span style="color: #ffa148;">WORLD</span></h2>
         </div>
         <div class="w-2/4 h-full flex px-40">
             <a href="{% url 'dashb' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
@@ -64,7 +28,7 @@
                   </svg>
                 <h3>Home</h3>
             </a>
-            <a onclick="popupmsg()" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+            <a onclick="popupmsg()" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold" style="cursor: pointer;">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
                     <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                     <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
@@ -100,35 +64,48 @@
                 </div>
             </a>
         </div>
-
     </div>
-    <div class="w-full h-full flex px-9">
-        <div class=" h-2/3 flex flex-col px-10 mt-3 bg-orange-300 rounded-2xl justify-between items-center" style="width: 18vh; padding: 5vh 0 5vh 0;">
-            <p class="font-bold text-4xl text-white">N</p>
-            <p class="font-bold text-4xl text-white">O</p>
-            <p class="font-bold text-4xl text-white">T</p>
-            <p class="font-bold text-4xl text-white">I</p>
-            <p class="font-bold text-4xl text-white">C</p>
-            <p class="font-bold text-4xl text-white">E</p>
-
-        </div>
-        <div class="w-full h-full flex flex-col overflow-y-auto bg-gray-100 mt-3 rounded-2xl ml-3 px-10">
-            {% for link, head in zip %}
-            <div class="mt-4 rounded-xl h-20 w-full bg-orange-100 text-2xl flex items-center px-20" style="height: 10vh;">
-                <a href="{{link}}" target="_blank" class="h-full">{{head}}</a>
-            </div>        
-            {% endfor %}    
-        </div>
-
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    <!-- notice body -->
+    <div id="loading-indicator">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <div style="overflow: auto;">
+        <section class="card-container" id="notice-body">
+
+        </section>
+    </div>
+
+    <!-- details container -->
+    <div id = "details_cont" class="w-full h-full flex justify-center items-center" 
+                                    style="z-index: 999999; position: absolute;display: none;">
+        <div >
+            <div>
+                <!-- content append here -->
+            </div>
+            <a href="#">Read More</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/app.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script>
         var csrf = "{{ csrf_token }}" ;
     </script>
-    
     <script>
-        
+        var imgUrls = "{{ images | safe}}";
+        var i = 0;
+        var details_data = []
+        var flag = 0; // 0: not loaded, 1: loaded
+
+        var cleanedString = imgUrls.slice(2, -2);
+        var imgUrls = cleanedString.split("', '");
+        imgUrls = imgUrls.map(url => url.trim().replace(/^['"]+|['"]+$/g, ''));
+
+        // console.log(imgUrls)
+
         let llb = document.getElementById("nn");
         let __idd = "" ;
         function popmsgg(idd, fname, lname) {
@@ -136,6 +113,74 @@
             __idd = idd;
         }
 
+        $(document).ready(function (){
+            $.ajax({
+                url: "http://127.0.0.1:7000/api/notice/",
+                type: "GET",
+                dataType: "json",
+                success:function(data){
+                    $("#notice-body").empty();
+                    if (data.length > 0 && !data[0].response) {
+                        data.forEach(function(notice) {
+                            var imgUrl = imgUrls[Math.floor(Math.random() * imgUrls.length)];
+                            details_data.push({
+                                "index" : i,
+                                "details" : notice.details
+                            })
+
+                            month = notice.date.split(" ")[0]
+                            day = notice.date.split(" ")[1]
+                            var cardHtml = `
+                                <div class="card">
+                                    <img src="${imgUrl}" alt="image" loading = "lazy">
+                                    <div>
+                                        <p>${month}</p>
+                                        <p>${day}</p>
+                                    </div>
+                                    <p class="details-header" id="details-header_${i}" data-detail-id="details_${i}" data-url="${notice.url}">${notice.title}</p>
+                                    <p style="display:none" id="details_${i}">${notice.details.join("###")}</p>
+                                </div>
+                            `;
+                            $('#notice-body').append(cardHtml);
+                            i++;
+                        });
+                    } else {
+                        $('#notice-body').append('<div class="card"><p>No notices available.</p></div>');
+                    }
+                    document.getElementById("loading-indicator").style.display = "none";
+                },
+                error: function(){
+                    document.getElementById("loading-indicator").style.display = "none";
+                }
+            })
+        })
+
+
+        $('#notice-body').on('click', '.details-header', function() {
+            var detailId = $(this).data('detail-id'); // Get the id of the detail element
+            var details = $('#' + detailId).text(); 
+            var details_list = details.split("###")
+            // console.log(details_list)
+            var url = $(this).data('url'); 
+
+            var detailsDiv = $('#details_cont').find('div > div');
+            detailsDiv.empty();
+
+            details_list.forEach(function(detail) {
+                detailsDiv.append(`<p>${detail}</p>`);
+            });
+
+            $('#details_cont').find('a').attr('href', url).attr('target', '_blank');
+            $('#details_cont').show();
+        });
+
+        $('#details_cont').on('click', function(event) {
+            if (event.target === this) { 
+                $(this).hide();
+            }
+        });
+        
+        
         let msgbox = document.getElementById('msgg') ;
         
         function sendmsg() {
@@ -176,6 +221,15 @@
             });
             }, 1000);
         }
+
+
+        // function pageLoading(){
+        //     setTimeout(()=>{
+        //         document.getElementById("loading-indicator").style.display = "none";
+        //     }, 7000)
+        // }
+
+
     </script>
 </body>
 </html>

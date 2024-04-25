@@ -164,34 +164,22 @@ def categorize(req, user):
     }
     return render(req, "categorize.html", data)
 
-#darain
+from django.templatetags.static import static
 def notice(req, user):
-
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id = dumm)
-    noticee = []
-    linkss = []
-    for i in range(0, 3):
-        reqs = requests.get("https://www.uiu.ac.bd/notices/page/"+str(i))
-        soup = BeautifulSoup(reqs.content, "html.parser")
-        for links in soup.find_all("article"):
-            headrs = links.find('header')
-            h2 = headrs.find("h2")
-            a = h2.find("a")
-            # print(a.get("href"))
-            linkss.append(a.get("href"))
-            noticee.append(h2.text)
-
-        zipit = zip(linkss, noticee)
-        print(zipit)
-    
     alls = students.objects.all()
+    img_list = ['img1', 'img2', 'img3', 'img4', 'img5', 'uiu']
+    img_urls = [static(f"img/{img}.jpg") for img in img_list]
+
+
     data = {
         'user':obj,
         'enp':user,
-        'zip':zipit,
         'all': alls,
+        'images':img_urls
     }
+
     return render(req, "notice.html", data)
 
 
