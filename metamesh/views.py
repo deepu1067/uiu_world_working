@@ -465,16 +465,31 @@ def jobDetails(req, user):
     return render(req, 'jobs.html', dat)
 
 
+import requests
+
 def achievements_view(request, user):
-
+    # Your existing code to retrieve student object
     dumm = signing.loads(user, key=key)
-    obj = students.objects.get(stu_id = dumm)
-
+    obj = students.objects.get(stu_id=dumm)
     alls = students.objects.all()
     
+    # Fetch paper data
+    papers = fetch_papers()
+    
     data = {
-        'user':obj,
-        'enp':user,
+        'user': obj,
+        'enp': user,
         'all': alls,
+        'papers': papers,  # Pass the papers data to the template
     }
     return render(request, 'achievement.html', data)
+
+def fetch_papers():
+    api_url = "http://127.0.0.1:7000/api/journal/"
+    try:
+        response = requests.get(api_url)
+        data = response.json()
+        return data[:3]  # Get the first three papers
+    except requests.RequestException as e:
+        print("Error fetching data:", e)
+        return []
