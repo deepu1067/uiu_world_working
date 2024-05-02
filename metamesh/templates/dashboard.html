@@ -17,27 +17,27 @@
             </div>
         </div>
         {% include 'message.html' %}
-        <div class="w-1/3 absolute h-2/3 bg-gray-100 mt-28 shadow-2xl rounded-2xl flex flex-col" id="post" style="margin-left:75vh; display:none;">
-            <div class="w-full h-20 flex justify-center items-center text-xl font-bold">
-                <h1>Create Post</h1>
-            </div>
-            <div class="w-full flex flex-col items-center mt-1 ">
-                <form action="{% url 'postit' user=enp %}" method="POST" class="flex flex-col">
-                    {% csrf_token %}
-                    <textarea name="post" class="rounded-2xl px-10 py-7 text-md" id="" cols="50" rows="15" style="resize:none"></textarea>
-                    <div class="w-full flex justify-between mt-3">
-                        <select name="cat" id="" class="w-1/3 flex items-center text-center rounded-2xl">
-                            <option value="urgent">Urgent</option>
-                            <option value="help">Help</option>
-                            <option value="club">Club</option>
-                            <option value="job">Job</option>
-                            <option value="seek">Seeking Post</option>
-
-
-                        </select>
-                        <input type="submit" name="sub" id="" value="Publish" class="w-24 rounded-2xl bg-orange-400 h-12 bg-black">
-                    </div>
-                </form>
+        <div class="absolute shadow-2xl justify-center items-center rounded-2xl" id="post" style="display:none; height: 100vh; width: 100%; background-color: #0000007e;">
+            <div style="background-color: #ffffff; width: max-content; padding: 1rem; border-radius: 10px;">
+                <div class="w-full h-20 flex justify-center items-center text-xl font-bold">
+                    <h1>Create Post</h1>
+                </div>
+                <div class="w-full flex flex-col items-center mt-1 ">
+                    <form action="{% url 'postit' user=enp %}" method="POST" class="flex flex-col">
+                        {% csrf_token %}
+                        <textarea name="post" class="rounded-2xl px-10 py-7 text-md" id="" cols="50" rows="15" style="resize:none" required></textarea>
+                        <div class="w-full flex justify-between mt-3">
+                            <select name="cat" id="" class="w-1/3 flex items-center text-center rounded-2xl" required>
+                                <option value="urgent">Urgent</option>
+                                <option value="help">Help</option>
+                                <option value="club">Club</option>
+                                <option value="job">Job</option>
+                                <option value="seek">Seeking Post</option>
+                            </select>
+                            <input type="submit" name="sub" id="" value="Publish" class="w-24 rounded-2xl bg-orange-400 h-12 bg-black">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- navbar -->
@@ -100,18 +100,17 @@
                         {% else %}
                             <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
                         {% endif %}
-                        <button class="w-3/4 ml-3 h-10 pl-8 text-gray-300 bg-white flex items-center rounded-2xl" onclick="popup()">Share your thoughts</button>
+                        <button class="w-3/4 ml-3 h-10 pl-8 text-gray-300 bg-white flex items-center rounded-2xl" onclick="popup()" style="cursor: text;">Share your thoughts</button>
                     </div>
-                    <div class="flex w-full items-center justify-end px-20">
-                        <p class="h-full flex justify-center items-center px-6 ">Filter by category</p>
-                        <select name="" id="change" class=" mt-5 h-full w-1/3 flex items-center text-center rounded-2xl">
+                    <div class="flex w-full items-center justify-end px-20" style="gap: 5px;">
+                        <p class="h-full flex justify-center items-center">Filter by category</p>
+                        <select name="" id="change" class="h-full w-1/3 flex items-center text-center rounded-2xl">
+                            <option value="all">Choose</option>
                             <option value="urgent">Urgent</option>
                             <option value="help">Help</option>
                             <option value="club">Club</option>
                             <option value="job">Job</option>
                             <option value="seek">Seeking Post</option>
-
-
                         </select>
                     </div>
                     
@@ -139,12 +138,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div onclick="bigsize('{{posts.iid}}')" class="w-full h-fit mt-2 mb-6">
+                        <div onclick="bigsize('{{posts.iid}}')" class="big-box w-full h-fit mt-2 mb-6">
                             <p>{{posts.text}}</p>
                         </div>
                         
-                        <div class="w-full h-10 flex mb-5 justify-center items-center">
-                            <div class="w-1/2 h-full flex">
+                        <div class="w-full h-10 flex mb-5 justify-between items-center">
+                            <div class="h-full" style="width: 110px;">
                                 <button id="{{posts.iid}}" data-user="{{user.stu_id}}" data-post="{{posts.iid}}" data-csrf='{% csrf_token %}' class="vote w-full h-full flex items-center justify-center rounded-2xl hover:text-orange-500 hover:font-bold" data-enp="{{enp}}">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4.008 8.714c1-.097 1.96-.45 2.792-1.028a25.112 25.112 0 0 0 4.454-5.72 1.8 1.8 0 0 1 .654-.706 1.742 1.742 0 0 1 1.65-.098 1.82 1.82 0 0 1 .97 1.128c.075.248.097.51.065.767l-1.562 4.629M4.008 8.714H1v9.257c0 .273.106.535.294.728a.99.99 0 0 0 .709.301h1.002a.99.99 0 0 0 .71-.301c.187-.193.293-.455.293-.728V8.714Zm8.02-1.028h4.968c.322 0 .64.08.925.232.286.153.531.374.716.645a2.108 2.108 0 0 1 .242 1.883l-2.36 7.2c-.288.813-.48 1.354-1.884 1.354-2.59 0-5.39-1.06-7.504-1.66"/>
@@ -152,16 +151,14 @@
                                     <h3 class="ml-2">Upvote</h3>
                                 </button>
                             </div>
-                            <div class="w-1/2 h-full flex items-center justify-center">
+                            <div class="h-full flex items-center justify-center" style="gap: 10px;">
                                 
-                                <input type="text" name="comnt" id="{{posts.iid}}" placeholder="Enter a comment" class="koment ml-8 rounded-2xl">
-                                <button class="cmnt w-full h-full flex justify-center items-center hover:text-orange-500" data-csrrf='{% csrf_token %}' data-postid="{{posts.iid}}" data-enp="{{enp}}" data-user="{{user.stu_id}}" >
+                                <input type="text" name="comnt" id="{{posts.iid}}" placeholder="Enter a comment" class="koment rounded-2xl">
+                                <button class="cmnt" data-csrrf='{% csrf_token %}' data-postid="{{posts.iid}}" data-enp="{{enp}}" data-user="{{user.stu_id}}" >
                                     Comment
                                 </button> 
 
                             </div>
-                            
-                            
                         </div>
                     </div>
                     {% endif %}
@@ -197,7 +194,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function popup() {
-            document.getElementById('post').style.display = 'block' ;
+            document.getElementById('post').style.display = 'flex' ;
         }
         function popoff() {
             document.getElementById('post').style.display = 'none' ;
@@ -270,28 +267,46 @@
         //                             Comment
         //                         </button> 
         $(document).ready(function() {
-            $('.cmnt').on('click', function() {
-                let postid = $(this).data('postid') ;
-                let enpp = $(this).data("enp");
-                let user = $(this).data("user") ;
-                let commentt = $(this).siblings('.koment').val() ;
-                let cssrf = $('[name=csrfmiddlewaretoken]').val();
-                $(this).siblings('.koment').val("") ;
-                console.log(commentt);
-                $.ajax({
-                    type: "POST" ,
-                    url: "{% url 'commentit' user=enp %}",
-                    data:{
-                        csrfmiddlewaretoken: cssrf,
-                        postid:postid,
-                        cmnt: commentt,
-                    },
-                    success: function() {
-                        console.log(commentt) ;
+                $('.cmnt').on('click', function() {
+                    postComment(this);
+                });
+
+                // Bind keypress event to the input field
+                $('.koment').keypress(function(e) {
+                    if (e.which == 13) { // Enter key pressed
+                        e.preventDefault(); // Prevent the default action
+                        postComment($(this).siblings('.cmnt'));
                     }
                 });
-            });
+
+                function postComment(element) {
+                    let $element = $(element);
+                    let postid = $element.data('postid');
+                    let enpp = $element.data("enp");
+                    let user = $element.data("user");
+                    let commentt = $element.siblings('.koment').val();
+                    let cssrf = $('[name=csrfmiddlewaretoken]').val();
+
+                    // Clear the input field
+                    $element.siblings('.koment').val("");
+                    console.log(commentt);
+
+                    // Perform AJAX request
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'commentit' user=enp %}", // Ensure this URL is correct
+                        data: {
+                            csrfmiddlewaretoken: cssrf,
+                            postid: postid,
+                            cmnt: commentt,
+                        },
+                        success: function() {
+                            console.log(commentt);
+                        }
+                    });
+                }
         });
+
 
         let llb = document.getElementById("nn");
         let __idd = "" ;
@@ -359,6 +374,16 @@
             let divv = document.getElementById('big') ;
             divv.style.display = "none" ;
         }
+
+        var modal = document.getElementById('post');
+
+        // Function to hide the modal if the click is on the background area
+        modal.addEventListener('click', function(event) {
+            // Check if the clicked element is the modal itself and not a child
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
 
         function del() {
             let divv = document.getElementById('pops') ;

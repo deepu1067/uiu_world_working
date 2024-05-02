@@ -1728,3 +1728,32 @@ select {
   background-color: var(--main-color);
   color: #ffffff;
 }
+
+.navbar{
+  padding: 0.5rem 0;
+}
+
+.cmnt{
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid orange;
+}
+
+.cmnt:hover{
+  background-color: orange;
+  color: #ffffff;
+}
+
+.big-box{
+  cursor: pointer;
+  background: rgb(255 227 206);
+  min-height: 7vh;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#post form input[type="submit"]:hover{
+  background-color: #ffffff;
+  border: 1px solid #D97316;
+  cursor: pointer;
+}

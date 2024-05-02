@@ -456,20 +456,21 @@ def viewDetails(req, user):
     return render(req, 'viewd.html', dat)
 
 def jobDetails(req, user):
-    dd = signing.loads(user, key=key)
-    data = students.objects.get(stu_id=dd)
+    dumm = signing.loads(user, key=key)
+    obj = students.objects.get(stu_id = dumm)
+    alls = students.objects.all()
+
     dat = {
-        'enp':data,
-        'user': user,
+        'user':obj,
+        'enp':user,
+        'all': alls,
     }
     return render(req, 'jobs.html', dat)
 
 
 def achievements_view(request, user):
-
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id = dumm)
-
     alls = students.objects.all()
     
     data = {
