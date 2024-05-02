@@ -1,6 +1,5 @@
 env_django
 env
-__pycache__/
+api/__pycache__
+metamesh/__pycache__
 .idea
-
-*.pyc
