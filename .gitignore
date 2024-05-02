@@ -1,3 +1,5 @@
 env_django
 env
 __pycache__/
+*.py[cod]
+.idea
