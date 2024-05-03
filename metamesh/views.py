@@ -138,13 +138,16 @@ def likeit(req):
 
 #darain
 def profile(req, user):
-    obj = students.objects.get(stu_id = signing.loads(user, key=key))
-
+    dumm = signing.loads(user, key=key)
+    obj = students.objects.get(stu_id = dumm)
+    alls = students.objects.all()
     pObj = posts.objects.filter(student = obj)
     like = likes.objects.all()
+
     data = {
-        "user":obj,
+        'user':obj,
         'enp':user,
+        'all': alls,
         'post':pObj,
         'likes':like,
     }
@@ -471,7 +474,6 @@ def jobDetails(req, user):
 import requests
 
 def achievements_view(request, user):
-    # Your existing code to retrieve student object
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id=dumm)
     alls = students.objects.all()
