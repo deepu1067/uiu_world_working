@@ -10,3 +10,14 @@ function sendmsgEnter(event) {
     sendmsg();
   }
 }
+
+function scrollToBottom() {
+  setTimeout(() => {
+      var msgContainer = document.getElementById('showmsg');
+      msgContainer.scroll({
+          top: msgContainer.scrollHeight,
+          behavior: 'smooth'
+      });
+      console.log("Scrolled to bottom");
+  }, 300); 
+}

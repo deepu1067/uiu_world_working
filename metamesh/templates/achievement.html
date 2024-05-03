@@ -172,74 +172,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full h-24 flex items-center ">
-        <div class="w-1/4 h-full flex items-center pl-9">
-            <h2 class="font-bold text-4xl">UIU <span style="color: #ffa148;">WORLD</span></h2>
-        </div>
-        <div class="w-2/4 h-full flex px-40">
-            <a href="{% url 'dashb' user=enp %}"
-                class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-house-door"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z" />
-                </svg>
-                <h3>Home</h3>
-            </a>
-            <a onclick="popupmsg()"
-                class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-chat-dots"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                    <path
-                        d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z" />
-                </svg>
-                <h3>Messages</h3>
-            </a>
-            <a href="{% url 'notice' user=enp %}"
-                class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-calendar3"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
-                    <path
-                        d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                </svg>
-
-                <h3>Notice</h3>
-            </a>
-            <a href="{% url 'club' user=enp %}"
-                class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-building-add"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Z" />
-                    <path
-                        d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1V1Z" />
-                    <path
-                        d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z" />
-                </svg>
-                <h3>Club</h3>
-            </a>
-        </div>
-
-        <div class="w-1/4 h-full flex justify-end items-center px-12">
-
-            <img src="" alt="" class="w-12 h-12 mr-4 rounded-full bg-black">
-            <a href="{% url 'logout' user=user.stu_id %}">
-                <div class="h-full flex flex-col justify-center items-center">
-                    <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9"
-                            d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
-                    </svg>
-                    <h3>Logout</h3>
-                </div>
-            </a>
-        </div>
-
-    </div>
+    {% include 'nav.html'%}
 
     <!-- Banner section -->
     <div class="w-full banner bg-gray-800 rounded-lg shadow-lg overflow-hidden in-view-hidden"
@@ -325,84 +258,82 @@
         </div>
 
     </div>
+    <script src="{% static 'js/app.js'%}"></script>
+    <script>
+        function inViewVisibility(element) {
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.intersectionRatio > 0) {
+                            entry.target.classList.remove("in-view-hidden");
+                            entry.target.classList.add("in-view-visible");
+                        }
+                    });
+                },
+                {
+                    threshold: 0.75,
+                }
+            );
+            observer.observe(element);
+        }
 
-</body>
-
-<script>
-    function inViewVisibility(element) {
-        const observer = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.intersectionRatio > 0) {
-                        entry.target.classList.remove("in-view-hidden");
-                        entry.target.classList.add("in-view-visible");
-                    }
-                });
-            },
-            {
-                threshold: 0.75,
-            }
-        );
-        observer.observe(element);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const banner = document.querySelector(".banner");
-        inViewVisibility(banner);
-    });
-
-    let llb = document.getElementById("nn");
-    let __idd = "";
-    function popmsgg(idd, fname, lname) {
-        llb.innerHTML = fname + " " + lname;
-        __idd = idd;
-    }
-
-    let msgbox = document.getElementById('msgg');
-
-    function sendmsg() {
-
-        var ccss = document.getElementById('sendbtn').getAttribute('data-crf');
-        console.log(csrf);
-        let __msg = msgbox.value;
-        msgbox.value = "";
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'sendmsg' user=enp %}",
-            data: {
-                csrfmiddlewaretoken: csrf,
-                tousr: __idd,
-                msg: __msg
-            },
-            success: function () {
-                console.log("Sned successfully");
-            }
+        document.addEventListener("DOMContentLoaded", () => {
+            const banner = document.querySelector(".banner");
+            inViewVisibility(banner);
         });
 
-    }
+        let llb = document.getElementById("nn");
+        let __idd = "";
+        function popmsgg(idd, fname, lname) {
+            llb.innerHTML = fname + " " + lname;
+            __idd = idd;
+        }
 
-    function popupmsg() {
-        document.getElementById("pops").style.display = "flex";
-        setInterval(function () {
+        let msgbox = document.getElementById('msgg');
+
+        function sendmsg() {
+
+            var ccss = document.getElementById('sendbtn').getAttribute('data-crf');
+            console.log(csrf);
+            let __msg = msgbox.value;
+            msgbox.value = "";
+
             $.ajax({
-                type: "GET",
-                url: "{% url 'getmsg' user=enp %}",
-                dataType: 'html',
+                type: "POST",
+                url: "{% url 'sendmsg' user=enp %}",
                 data: {
-                    to_id: __idd,
+                    csrfmiddlewaretoken: csrf,
+                    tousr: __idd,
+                    msg: __msg
                 },
-                success: function (res) {
-                    $('#showmsg').html(res);
-                },
+                success: function () {
+                    console.log("Sned successfully");
+                }
             });
-        }, 1000);
-    }
+
+        }
+
+        function popupmsg() {
+            document.getElementById("pops").style.display = "flex";
+            setInterval(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'getmsg' user=enp %}",
+                    dataType: 'html',
+                    data: {
+                        to_id: __idd,
+                    },
+                    success: function (res) {
+                        $('#showmsg').html(res);
+                    },
+                });
+            }, 1000);
+        }
 
 
 
 
-</script>
-
+    </script>
+</body>
 
 </html>
