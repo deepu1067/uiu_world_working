@@ -7,9 +7,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clubs | UIU-matamesh</title>
+    <style>
+        .btn {
+            border: 1px solid rgb(233, 233, 233);
+            background-color: inherit;
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+            padding: 14px 28px;
+            font-size: 10px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 1%;
+            margin-left: 1%;
+            margin-bottom: 2%;
+        }
+        .default {
+        color: rgb(0, 0, 0);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 25px;
+        }
+        .default:hover {
+        background:  #ff9800;
+        color: white;
+        }
+        form input[type="submit"]:hover{
+            background-color:  rgb(223, 222, 222) !important; 
+            border: 2px solid #ff9800;
+            color: black !important;
+        }
+    </style>
+
     {% tailwind_css %}
 </head>
-<body class="overflow-hidden w-screen h-screen">
+<body class="w-screen h-screen">
     <div id="pops" class="absolute w-full h-full flex justify-center items-center" style="display: none; background-color: rgba(94, 94, 94, 0.7);">
         <div class="w-2/3 h-3/4 flex bg-white rounded-3xl px-5" style="padding-top: 10px;">
             <div class="w-1/3 h-full flex flex-col">    
@@ -52,8 +81,9 @@
             </div>
         </div>
     </div>
-    <div id="club" class="absolute w-full h-full flex flex-col items-center" style="display: none;">
-        <div class="bg-white rounded-xl mt-10 px-20 flex flex-col items-center" style="width: 50%; height: 80%; margin-left: 25%;">
+
+    <div id="club" class="absolute w-full h-full flex flex-col items-center" style="display: none; background-color: rgba(0, 0, 0, 0.233); ">
+        <div class="bg-white rounded-xl px-20 flex flex-col items-center" style="width: 50%; height: max-content; padding: 20px; margin: auto; margin-top: 5%; border: 1px solid #ff9800; box-shadow: 0px 0px 51px -3px rgba(0,0,0,0.82);">
             <h3 class="text-3xl font-bold mt-5 mb-1">Create Your Club</h3>
             <h3>Give information of the club below</h3>
 
@@ -62,7 +92,7 @@
                     {% csrf_token %}
                     <div class="w-1/2 h-full flex flex-col" >
                         <label for="cname">Club name</label>
-                        <input type="text" class="rounded-xl" name="cname" id="cname" placeholder="Enter Club Name">
+                        <input type="text" class="rounded-xl" name="cname" id="cname" placeholder="Enter Club Name" required>
                         <label class="mt-4" for="ctype"> Choose type</label>
                         <select name="ctype" class="rounded-xl" id="ctype">
                             <option value="sports">Sports</option>
@@ -73,10 +103,10 @@
 
                         </select>
                         <label class="mt-4" for="purpose">Club purpose</label>
-                        <textarea class="text-md rounded-xl" name="purpose" id="purpose" cols="10" rows="6" style="resize: none;"></textarea>
+                        <textarea class="text-md rounded-xl" name="purpose" id="purpose" cols="10" rows="6" style="resize: none;" required></textarea>
 
                         <label class="mt-4" for="rules">Rules and Regulations</label>
-                        <textarea class="text-md rounded-xl" name="rules" id="rules" cols="10" rows="6" style="resize: none;"></textarea>
+                        <textarea class="text-md rounded-xl" name="rules" id="rules" cols="10" rows="6" style="resize: none;" required></textarea>
                     </div>
                     <div class="w-1/2 h-full flex flex-col" style="margin-left: 4%;">
                         <div class="w-full flex flex-col h-fit text-xl ">
@@ -118,12 +148,11 @@
                             <h3 class="ml-2">Check the members identity before approval.</h3>
                         </div>
                         <div class="w-fit h-fit flex mt-2 items-center">
-                            <input type="checkbox" name="agree" id="">
+                            <input type="checkbox" name="agree" id="" required>
                             <h3 class="ml-2">I am agree with the conditions.</h3>
                         </div>
-                        <div class="w-full h-fit flex justify-end px-1 mt-8">
-
-                            <input class="w-full h-14 bg-green-500 flex justify-center items-center" type="submit" name="sub" id="" value="Create Group">
+                        <div class="w-full h-fit flex justify-center px-1 mt-8">
+                            <input class="flex justify-center items-center cr_h" type="submit" name="sub" style="height: 50px; width: 400px; background-color: #ff9800; color: white; font-size: large; " value="Create Group">
                         </div>
                     </div>
 
@@ -131,10 +160,10 @@
             </div>
         </div>
     </div>
-    <div class="w-full h-24 flex items-center ">
+    
+    <div class="w-full flex items-center navbar">
         <div class="w-1/4 h-full flex items-center pl-9">
-            <!-- <img src="{% static 'img/logo.png' %}" alt="" class="h-15 w-20"> -->
-            
+            <h2 class="font-bold text-4xl">UIU <span style="color: #ffa148;">WORLD</span></h2>
         </div>
         <div class="w-2/4 h-full flex px-40">
             <a href="{% url 'dashb' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
@@ -143,7 +172,7 @@
                   </svg>
                 <h3>Home</h3>
             </a>
-            <a onclick="popupmsg()" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+            <a onclick="popupmsg()" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold" style="cursor: pointer;">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
                     <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                     <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
@@ -155,8 +184,16 @@
                     <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
                     <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                   </svg>
-
+    
                 <h3>Notice</h3>
+            </a>
+            <a href="{% url 'jobs' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+    
+                <h3>Jobs</h3>
             </a>
             <a href="{% url 'club' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
@@ -166,15 +203,25 @@
                   </svg>
                 <h3>Club</h3>
             </a>
+            <a href="{% url 'achievement' user=enp %}" class="w-1/4 h-full flex flex-col items-center justify-center hover:text-orange-500 hover:font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                <h3>Achievement</h3>
+            </a>
         </div>
         <div class="w-1/4 h-full flex justify-end items-center px-12">
-            
-            {% if obj.profpic.url != "" %}
-                <img src="{{obj.profpic.url}}" alt="" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
-            {% else %}
-                <img src="" alt="" class="object-cover rounded-full w-12 h-12 bg-black" style="margin-right: 1vh;">
+            <!-- Profile Link - Check if user ID exists before rendering the link -->
+            {% if user.stu_id %}
+            <a href="{% url 'profile' user=enp %}">
+                <img src="{{ user.profpic.url }}" alt="Profile Picture" class="object-cover rounded-full w-12 h-12" style="margin-right: 1vh;">
+            </a>
             {% endif %}
-            <a href="{% url 'logout' user=obj.stu_id %}">
+        
+            <!-- Logout Link - Similarly, check if user ID exists before rendering the logout link -->
+            {% if user.stu_id %}
+            <a href="{% url 'logout' user=user.stu_id %}">
                 <div class="h-full flex flex-col justify-center items-center">
                     <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9" d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3"/>
@@ -182,41 +229,43 @@
                     <h3>Logout</h3>
                 </div>
             </a>
+            {% endif %}
         </div>
-
+        
     </div>
-    <div class="w-full h-full bg-gray-100 flex flex-col px-20">
-        <div class="w-full h-20 flex justify-end items-center">
-            <button onclick="ppup()" class=" mt-5 w-1/5 h-3/4 bg-orange-300 flex justify-center items-center rounded-2xl text-md font-bold">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
-                </svg>
-                <h3 class="ml-5">Create Club</h3>
-            </button>
-        </div>
-        <div class="w-full h-full flex flex-col overflow-y-auto mt-3">
-            <div class="w-3/4 h-fit flex flex-col mb-5">
-                <h3 class="text-3xl font-bold">Clubs</h3>
-                <h3 class="text-md ">Manage and access all of your clubs from here.</h3>
-            </div>
 
+    <div class="h-fit bg-gray-100 flex-col">
+        <div class="flex px-20" style="margin-top: 20px; margin-bottom: 20px;">
+            <button onclick="ppup()" class="btn default">Create Club</button>
+        </div>
+        <div class="flex flex-col" style="margin-left: 5%; ">
+            <h3 class="text-3xl font-bold" style="color: rgb(77, 77, 77); font-size: 40px;">Clubs</h3>
+            <h3 class="text-md" style="font-size: 30px;">Manage and access all of your clubs from here.</h3>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); grid-gap: 5px; margin-left: 5%; margin-right: 5%; border-radius: 7px;">
             {% for c in club %}
-            <div class="w-3/4 mt-6 flex items-center px-20 rounded-2xl h-1/5 bg-gray-300">
-                <img src="" alt="" class="rounded-full bg-orange-300" style="width: 150px ; height: 150px;">
-                <div class="w-2/3 h-full flex justify-center flex-col ml-8">
+            <div class="flex flex-col rounded-2xl bg-gray-300" style="height: 500px; justify-content: center; align-items: center;">
+                <img src="{% static 'img/online.gif'%}" alt="" class="rounded-full bg-orange-300" style="width: 300px ; height: 300px; ">
+                <div class="flex justify-center items-center flex-col">
                     <h3 class="text-4xl font-bold">{{c.clubname}}</h3>
-                    <h3>{{c.purpose}}</h3>
+                    <h3 class="text-2xl">{{c.purpose}}</h3>
                 </div>
-                {% if c.adminid == obj %}
-                <a id="{{c.clubname}}" href="{% url 'cdash' user=enp club=c.clubname %}" class="w-1/6 h-1/3 ml-8 flex justify-center items-center text-2xl text-white rounded-2xl" style="background-color: blue;">Enter</a>
-                {% else %}
-                <a id="{{c.clubname}}" href="{% url 'approval' user=enp club=c.clubname %}" class="w-1/6 h-1/3 bg-green-500 ml-8 flex justify-center items-center text-2xl text-white rounded-2xl">Join</a>
-                {% endif %}
-            
+                <div style="margin-top: 10px;">
+                    {% if c.adminid == obj %}
+                    <a id="{{c.clubname}}" href="{% url 'cdash' user=enp club=c.clubname %}" class="flex justify-center items-center text-2xl text-white" style="background-color: rgb(250, 135, 4); height: 50px; width: 200px; border-radius: 7px;">Enter</a>
+                    {% else %}
+                    <a id="{{c.clubname}}" href="{% url 'approval' user=enp club=c.clubname %}" class="bg-green-500 flex justify-center items-center text-2xl text-white rounded-2xl">Join</a>
+                    {% endif %}
+                </div>
             </div>
             {% endfor %}
         </div>
     </div>
+    
+    
+    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
