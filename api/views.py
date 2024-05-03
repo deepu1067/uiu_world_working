@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import requests
 from bs4 import BeautifulSoup
+import json
 from .helpers import get_soup
 
 def notice(req):
@@ -60,3 +61,8 @@ def journal(req):
             paper_list.append(paper_info)
     
     return JsonResponse(paper_list, safe=False)
+
+def jobs(req):
+    with open("api/static/jobs.json", "r") as file:
+        jobs = json.load(file)
+    return JsonResponse(jobs, safe=False)

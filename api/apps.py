@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from threading import Thread
-from .helpers import scrape_paper
+from .helpers import *
 import sys
 has_been_run = False
 
@@ -16,3 +16,4 @@ class ApiConfig(AppConfig):
             thread = Thread(target=scrape_paper("https://www.uiu.ac.bd/research/journal-paper/", "journal"))
             thread.start()
             
+            get_jobs()
