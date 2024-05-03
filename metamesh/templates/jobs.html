@@ -7,26 +7,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% tailwind_css %}
 </head>
-<body class="w-screen h-screen overflow-hidden flex flex-col">
+<body class="w-screen h-screen flex flex-col" style="overflow-x: hidden;">
     {% include 'message.html' %}
     {% include 'nav.html' %}
     
     <main id="job-main">
-        <div class="left">
-            
-        </div>
-
-        <div class="middle">
-            
-        </div>
-
-        <div class="right">
-            
-        </div>
+        <section>
+            <h1>Jobs List</h1>
+            <div class="search">
+                <input type="text" name="search" id="jobSearch">
+                <input type="button" value="Search" onclick=filterJobs()>
+            </div>
+            <div class="job-container" id="jobsContainer">
+                {% for job in jobs %}
+                <div class="job-card" data-job='{{ job.position }} {{ job.company }} {{ job.location }} {{ job.education|default:"Not Mentioned" }} {{ job.experience }} {{ job.deadline }}'>
+                    <p>{{job.position}}</p>
+                    <p>{{job.company}}</p>
+                    <p><i class="fa-solid fa-location-dot"></i> {{job.location}}</p>
+                    <p> <i class="fa-solid fa-graduation-cap"></i> {{ job.education|default:"Not Mentioned" }}</p></p>
+                    <p><i class="fa-solid fa-briefcase"></i> {{job.experince}}</p>
+                    <p><i class="fa-solid fa-calendar-days"></i> {{job.deadline}}</p>
+                    <a href="{{ job.job_url }}" target="_blank">Apply</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
     </main>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'js/app.js'%}"></script>
@@ -83,6 +92,24 @@
             });
             }, 1000);
         }
+
+        function filterJobs() {
+            var input = document.getElementById('jobSearch').value.toLowerCase();
+            var jobsContainer = document.getElementById('jobsContainer');
+            var jobCards = jobsContainer.getElementsByClassName('job-card');
+
+            for (var i = 0; i < jobCards.length; i++) {
+                var card = jobCards[i];
+                // Compare input with the data-job attribute text
+                if (card.getAttribute('data-job').toLowerCase().includes(input)) {
+                    card.style.display = ""; // Match found, display the card
+                } else {
+                    card.style.display = "none"; // No match, hide the card
+                }
+            }
+        }
+
+        document.getElementById('jobSearch').addEventListener('keyup', filterJobs);
     </script>
 </body>
 </html>

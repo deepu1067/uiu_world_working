@@ -9,15 +9,14 @@
     <title>Profile | UIU-matamesh</title>
     {% tailwind_css %}
 </head>
-<body class="w-screen h-screen flex flex-col overflow-hidden pl-9">
+<body class="w-screen h-screen overflow-hidden flex flex-col">
     <!-- start message pop -->
     {% include 'message.html' %}
     <!-- end message pop -->
 
     {% include 'nav.html' %}
 
-    <div class="w-full h-full flex">
-
+    <div class="w-full h-full flex px-5" style="gap: 1rem;">
         <div class="w-1/5 bg-orange-300 flex-col rounded-2xl" style="height: 50vh;">
             <div class=" mt-10 ml-5 flex justify-center items-center px-20 rounded-full bg-black" style="height: 15vh; width: 15vh;  background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
     
@@ -41,8 +40,9 @@
                 <p>Phone number: {{user.phone_number}}</p>
             </div>
         </div>
-        <div class="w-4/5 h-full px-20 flex flex-col">
-            <p class="text-2xl font-bold bg-gray-100 flex items-center" style="height: 4vh;">Your Posts</p>
+
+        <div class="w-4/5 h-full flex flex-col">
+            <p class="text-2xl font-bold bg-gray-100" style="padding: 10px; text-align: center; font-size: 2rem;">Your Posts</p>
 
             <div class="overflow-y-auto w-full pr-10" style="height: 82vh;">
                 {% for posts in post %}

@@ -463,12 +463,16 @@ def jobDetails(req, user):
     obj = students.objects.get(stu_id = dumm)
     alls = students.objects.all()
 
-    dat = {
+    api_url = "http://127.0.0.1:7000/api/jobs/"
+    response = requests.get(api_url)
+
+    data = {
         'user':obj,
         'enp':user,
         'all': alls,
+        'jobs': response.json()
     }
-    return render(req, 'jobs.html', dat)
+    return render(req, 'jobs.html', data)
 
 
 import requests
