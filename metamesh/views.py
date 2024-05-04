@@ -172,6 +172,7 @@ def notice(req, user):
     dumm = signing.loads(user, key=key)
     obj = students.objects.get(stu_id = dumm)
     alls = students.objects.all()
+
     img_list = ['img1', 'img2', 'img3', 'img4', 'img5', 'uiu']
     img_urls = [static(f"img/{img}.jpg") for img in img_list]
 
@@ -186,24 +187,24 @@ def notice(req, user):
     return render(req, "notice.html", data)
 
 
-#khaled
 def club(req, user):
-    if 'validate' in req.session:
-        dercp = signing.loads(user, key=key)
-        obj = students.objects.get(stu_id = dercp)
-        clubss = clubs.objects.all()
-        sortclub = json.dumps(list(clubApproval.objects.filter(studentss = obj).values()))
-        alls = students.objects.all()
-        data = {
-            'obj': obj,
-            'enp': user,
-            'club':clubss,
-            'sort': sortclub,
-            'all':alls,
-        }
-        return render(req, "club.html", data)
-    else:
-        return redirect('login')
+    dumm = signing.loads(user, key=key)
+    obj = students.objects.get(stu_id = dumm)
+    alls = students.objects.all()
+
+    clubss = clubs.objects.all()
+    sortclub = json.dumps(list(clubApproval.objects.filter(studentss = obj).values()))
+
+    data = {
+        'user':obj,
+        'enp': user,
+        'club':clubss,
+        'sort': sortclub,
+        'all':alls,
+    }
+    
+
+    return render(req, "club.html", data)
 
 def createClub(req, user):
     if 'validate' in req.session:
