@@ -140,7 +140,7 @@
                     <h3 class="text-2xl">{{c.purpose}}</h3>
                 </div>
                 <div style="margin-top: 10px;">
-                    {% if c.adminid == obj %}
+                    {% if c.adminid == user %}
                     <a id="{{c.clubname}}" href="{% url 'cdash' user=enp club=c.clubname %}" class="flex justify-center items-center text-2xl text-white" style="background-color: rgb(250, 135, 4); height: 50px; width: 200px; border-radius: 7px;">Enter</a>
                     {% else %}
                     <a id="{{c.clubname}}" href="{% url 'approval' user=enp club=c.clubname %}" class="bg-green-500 flex justify-center items-center text-2xl text-white rounded-2xl">Join</a>
@@ -171,7 +171,6 @@
 
                 document.getElementById(sortt[i].clubid_id).innerHTML = sortt[i].status ;
                 document.getElementById(sortt[i].clubid_id).style.backgroundColor = "orange" ;
-                document.getElementById(sortt[i].clubid_id).style.pointerEvents = "none" ;
             }
             else if(sortt[i].studentss_id ==sortt[i].admin || sortt[i].status == "Joined" ) {
                 var url = "{% url 'cdash' user=enp club='__clubid__' %}".replace("__clubid__", sortt[i].clubid_id );
