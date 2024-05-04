@@ -17,12 +17,11 @@
     {% include 'nav.html' %}
 
     <div class="w-full h-full flex px-5" style="gap: 1rem;">
-        <div class="w-1/5 bg-orange-300 flex-col rounded-2xl" style="height: 50vh;">
-            <div class=" mt-10 ml-5 flex justify-center items-center px-20 rounded-full bg-black" style="height: 15vh; width: 15vh;  background-image: url(''); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="w-1/5 bg-orange-300 flex flex-col rounded-2xl" style="height: 50vh; padding: 25px; gap: 10px;">
+            <div class="flex justify-center items-center bg-black" style="height: 15vh; width: 15vh;  background-image: url('{{user.profpic.url}}'); background-size: cover; background-position: center; background-repeat: no-repeat; border-radius: 20px;">
     
-                <label for="image" class="img mt-10 font-bold mb-2 w-full">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" style="margin-right: 9px;" viewBox="0 0 16 16">
+                <label for="image" class="img font-bold" style="background-color: #0000002d; width: 100%; height: 100%; padding: 10px; border-radius: 20px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera-fill chng-profile" style="color:#ffffff; cursor:pointer" viewBox="0 0 16 16" title="Upload profile picture">
                         <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
                         <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
                     </svg>
@@ -30,14 +29,14 @@
                 <input type="file" name="img" id="image" style="display: none;">
     
             </div>
-            <div class="mt-4 ml-5 w-full h-fit flex flex-col font-bold">
+            <div class="w-full h-fit flex flex-col font-bold">
                 <p class="text-2xl">{{user.firstName|add:" "|add:user.lastName}}</p>
                 <p class="text-md">{{user.stu_id}}</p>
             </div>
-            <div class="mt-10 ml-5 w-full h-fit flex flex-col ">
+            <div class="w-full h-fit flex flex-col ">
                 <p>ID: {{user.batch}}</p>
                 <p>Department: {{user.dept}}</p>
-                <p>Phone number: {{user.phone_number}}</p>
+                <p>Phone number: {{user.phone_number | default:"Not provided"}}</p>
             </div>
         </div>
 
@@ -48,7 +47,7 @@
                 {% for posts in post %}
                 <div class="w-full h-fit flex flex-col rounded-2xl bg-orange-100 px-8 mt-6 mb-5">
                     <div class="w-full h-20 flex items-center">
-                        <img src="" alt="" class="w-12 h-12 rounded-full object-cover">
+                        <img src="{{user.profpic.url}}" alt="" class="w-12 h-12 rounded-full object-cover">
                         <div class="w-2/3 h-fit flex flex-col">
                             <h3 class="ml-2 text-md font-bold">{{posts.student.firstName|add:" "|add:posts.student.lastName}}</h3>
                             <div class="ml-2 w-full h-fit flex items-center">

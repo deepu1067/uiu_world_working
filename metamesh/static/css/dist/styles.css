@@ -1948,3 +1948,7 @@ select {
   background-color: #ff7b00;
   color: #ffffff;
 }
+
+.chng-profile:hover{
+  color: #ff7b00 !important;
+}
