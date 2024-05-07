@@ -29,8 +29,14 @@ SECRET_KEY = 'django-insecure-muo)+n=69r!z3d-zrnwwf1261qno*ub%=ctdd4$8zn#c6c&$@j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",
+                 "10.10.202.99"
+                 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:7000',
+    'https://10.10.202.99:7000',
+]
 
 # Application definition
 
@@ -46,9 +52,11 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'api.apps.ApiConfig',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

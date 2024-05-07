@@ -44,6 +44,7 @@ def journal(req):
         for paper in paper_details:
             year = paper.select("span")[0].text.strip()
             paper_url = paper.select_one("a").get("href")
+            paper_title = paper.find("h2", class_ = "paper-title").text.strip()
             publication = (
                 paper.select_one(".paper-event").text.strip().split("Publication:")[1].strip()
             )
@@ -52,6 +53,7 @@ def journal(req):
 
             paper_info = {
                 "year": year,
+                "paper_title": paper_title,
                 "paper_url": paper_url,
                 "publication": publication,
                 "authors": authors,
