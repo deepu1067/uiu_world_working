@@ -276,8 +276,9 @@ def clubApprove(req, user, club):
 def clubDash (req, user, club):
     if 'validate' in req.session:
         print(club)
-        decrp = signing.loads(user, key=key)
-        obj = students.objects.get(stu_id = decrp)
+        dumm = signing.loads(user, key=key)
+        obj = students.objects.get(stu_id = dumm)
+        alls = students.objects.all()
         clubb = clubs.objects.get(clubname = club)
         cposts = clubpost.objects.filter(clubidd = clubb)
         pending = clubApproval.objects.filter(clubid = clubb).filter(status = "Pending")
@@ -286,7 +287,7 @@ def clubDash (req, user, club):
 
         events= eevent.objects.filter(club = clubb)
         data = {
-            'obj':obj ,
+            'user':obj ,
             'enp': user,
             'clb':clubb,
             'clbname':club,
@@ -295,6 +296,7 @@ def clubDash (req, user, club):
             'joined':members,
             'clikes': clikes,
             'events':events,
+            'all':alls
         }
         return render(req, 'clubdashboard.html', data)
     else:
