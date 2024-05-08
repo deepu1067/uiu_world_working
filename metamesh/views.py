@@ -499,7 +499,7 @@ def fetch_papers():
     try:
         response = requests.get(api_url)
         data = response.json()
-        return data[:3]  # Get the first three papers
+        return data  # Get the first three papers
     except requests.RequestException as e:
         print("Error fetching data:", e)
         return []
