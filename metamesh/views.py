@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from .models import *
 from django.core import signing
@@ -176,12 +177,33 @@ def notice(req, user):
     img_list = ['img1', 'img2', 'img3', 'img4', 'img5', 'uiu']
     img_urls = [static(f"img/{img}.jpg") for img in img_list]
 
+    api_url = "http://127.0.0.1:7000/api/notice/"
+    response = requests.get(api_url)
+    notices = []
+
+    for notice in response.json():
+        image = random.choice(img_urls)
+        month = notice["date"].split(" ")[0]
+        day = notice["date"].split(" ")[1]
+        title = notice["title"]
+        url = notice["url"]
+        details = notice["details"]
+
+        notices.append({
+            'image':image,
+            'month': month,
+            'day' : day,
+            'title': title,
+            'url': url,
+            'details': details,
+        })
 
     data = {
         'user':obj,
         'enp':user,
         'all': alls,
-        'images':img_urls
+        'images':img_urls,
+        'notices':notices
     }
 
     return render(req, "notice.html", data)

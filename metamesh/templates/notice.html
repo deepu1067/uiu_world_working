@@ -27,7 +27,18 @@
 
     <div style="overflow: auto;">
         <section class="card-container" id="notice-body">
-
+            <!-- content append here -->
+            {% for notice in notices %}
+                <div class="card">
+                    <img src="{{ notice.image }}" alt="image" loading="lazy">
+                    <div class="date">
+                        <p>{{ notice.month}}</p>
+                        <p>{{ notice.day}}</p>
+                    </div>
+                    <p class="details-header" id="details-header_{{ notice.id }}" data-detail-id="details_{{ notice.id }}" data-url="{{ notice.url }}">{{ notice.title }}</p>
+                    <p id="details_{{ notice.id }}" style="display:none">{{ notice.details|safe }}</p>
+                </div>
+            {% endfor %}
         </section>
     </div>
 
@@ -67,48 +78,9 @@
             __idd = idd;
         }
 
-        $(document).ready(function (){
-            $.ajax({
-                url: "http://127.0.0.1:7000/api/notice/",
-                type: "GET",
-                dataType: "json",
-                success:function(data){
-                    $("#notice-body").empty();
-                    if (data.length > 0 && !data[0].response) {
-                        data.forEach(function(notice) {
-                            var imgUrl = imgUrls[Math.floor(Math.random() * imgUrls.length)];
-                            details_data.push({
-                                "index" : i,
-                                "details" : notice.details
-                            })
-
-                            month = notice.date.split(" ")[0]
-                            day = notice.date.split(" ")[1]
-                            var cardHtml = `
-                                <div class="card">
-                                    <img src="${imgUrl}" alt="image" loading = "lazy">
-                                    <div>
-                                        <p>${month}</p>
-                                        <p>${day}</p>
-                                    </div>
-                                    <p class="details-header" id="details-header_${i}" data-detail-id="details_${i}" data-url="${notice.url}">${notice.title}</p>
-                                    <p style="display:none" id="details_${i}">${notice.details.join("###")}</p>
-                                </div>
-                            `;
-                            $('#notice-body').append(cardHtml);
-                            i++;
-                        });
-                    } else {
-                        $('#notice-body').append('<div class="card"><p>No notices available.</p></div>');
-                    }
-                    document.getElementById("loading-indicator").style.display = "none";
-                },
-                error: function(){
-                    document.getElementById("loading-indicator").style.display = "none";
-                }
-            })
-        })
-
+        setTimeout(()=>{
+            document.getElementById("loading-indicator").style.display = "none";
+        }, 2000);
 
         $('#notice-body').on('click', '.details-header', function() {
             var detailId = $(this).data('detail-id'); // Get the id of the detail element
