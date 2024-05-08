@@ -47,7 +47,7 @@
                 {% for posts in post %}
                 <div class="w-full h-fit flex flex-col rounded-2xl bg-orange-100 px-8 mt-6 mb-5">
                     <div class="w-full h-20 flex items-center">
-                        <img src="{{user.profpic.url || ''}}" alt="" class="w-12 h-12 rounded-full object-cover">
+                        <img src="{{user.profpic.url | safe}}" alt="" class="w-12 h-12 rounded-full object-cover">
                         <div class="w-2/3 h-fit flex flex-col">
                             <h3 class="ml-2 text-md font-bold">{{posts.student.firstName|add:" "|add:posts.student.lastName}}</h3>
                             <div class="ml-2 w-full h-fit flex items-center">

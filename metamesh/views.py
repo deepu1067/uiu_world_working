@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from .models import *
 from django.core import signing
@@ -176,12 +177,33 @@ def notice(req, user):
     img_list = ['img1', 'img2', 'img3', 'img4', 'img5', 'uiu']
     img_urls = [static(f"img/{img}.jpg") for img in img_list]
 
+    api_url = "http://127.0.0.1:7000/api/notice/"
+    response = requests.get(api_url)
+    notices = []
+
+    for notice in response.json():
+        image = random.choice(img_urls)
+        month = notice["date"].split(" ")[0]
+        day = notice["date"].split(" ")[1]
+        title = notice["title"]
+        url = notice["url"]
+        details = notice["details"]
+
+        notices.append({
+            'image':image,
+            'month': month,
+            'day' : day,
+            'title': title,
+            'url': url,
+            'details': details,
+        })
 
     data = {
         'user':obj,
         'enp':user,
         'all': alls,
-        'images':img_urls
+        'images':img_urls,
+        'notices':notices
     }
 
     return render(req, "notice.html", data)
@@ -254,8 +276,9 @@ def clubApprove(req, user, club):
 def clubDash (req, user, club):
     if 'validate' in req.session:
         print(club)
-        decrp = signing.loads(user, key=key)
-        obj = students.objects.get(stu_id = decrp)
+        dumm = signing.loads(user, key=key)
+        obj = students.objects.get(stu_id = dumm)
+        alls = students.objects.all()
         clubb = clubs.objects.get(clubname = club)
         cposts = clubpost.objects.filter(clubidd = clubb)
         pending = clubApproval.objects.filter(clubid = clubb).filter(status = "Pending")
@@ -264,7 +287,7 @@ def clubDash (req, user, club):
 
         events= eevent.objects.filter(club = clubb)
         data = {
-            'obj':obj ,
+            'user':obj ,
             'enp': user,
             'clb':clubb,
             'clbname':club,
@@ -273,6 +296,7 @@ def clubDash (req, user, club):
             'joined':members,
             'clikes': clikes,
             'events':events,
+            'all':alls
         }
         return render(req, 'clubdashboard.html', data)
     else:
