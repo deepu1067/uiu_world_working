@@ -121,23 +121,18 @@
             /* Add underline on hover */
         }
 
-        @keyframes slideInOut {
-
-            0%,
-            100% {
-                opacity: 0;
-                transform: translateX(-50%);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
 
         /* Apply animation to images */
         .banner img {
             animation: slideInOut 6s linear infinite;
+        }
+
+        .search-input {
+            
+            border-radius: 10px;
+            width: 500px;
+            height: 50px;
+            border: 2px solid #F0F0F0;
         }
     </style>
 
@@ -169,11 +164,14 @@
     <div class="journal-container">
         <div class="journal-item">
             <div class="gradient-background">
-                <p>Journal Paper</p>
+                <p class="journal-p">Journal Paper</p>
             </div>
-            <div class="allinfo">
+            <div class="allinfo" id="paperList">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search..." class="search-input">
+                </div>
                 {% for paper in papers %}
-                <div class="info-container">
+                <div class="info-container paper">
                     <div class="details">
                         <p>{{ paper.year }}</p>
                         <h1><a href="{{ paper.paper_url }}" class="link">{{ paper.paper_title }}</a></h1>
@@ -188,6 +186,7 @@
             </div>
         </div>
     </div>
+
     <script src="{% static 'js/app.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -266,7 +265,22 @@
         }
 
 
+        function filterPapers() {
+            var searchText = document.getElementById("searchInput").value.toLowerCase();
+            var papers = document.querySelectorAll(".paper");
 
+            papers.forEach(function (paper) {
+                var content = paper.textContent.toLowerCase();
+                if (searchText === "" || content.includes(searchText)) {
+                    paper.style.display = "block";
+                } else {
+                    paper.style.display = "none";
+                }
+            });
+        }
+
+        // Add event listener to the search input field
+        document.getElementById("searchInput").addEventListener("input", filterPapers);
 
     </script>
 </body>
