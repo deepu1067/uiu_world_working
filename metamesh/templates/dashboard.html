@@ -17,6 +17,9 @@
             </div>
         </div>
         {% include 'message.html' %}
+        <!-- navbar -->
+        {% include 'nav.html' %}
+        <!-- navbar end  -->
         <div class="absolute shadow-2xl justify-center items-center rounded-2xl" id="post" style="display:none; height: 100vh; width: 100%; background-color: #0000007e;">
             <div style="background-color: #ffffff; width: max-content; padding: 1rem; border-radius: 10px;">
                 <div class="w-full h-20 flex justify-center items-center text-xl font-bold">
@@ -40,9 +43,7 @@
                 </div>
             </div>
         </div>
-        <!-- navbar -->
-        {% include 'nav.html' %}
-        <!-- navbar end  -->
+        
         <div class="w-full h-full overflow-hidden flex ">
 
             <div class="w-1/4 h-full flex flex-col mt-3 px-9">
@@ -55,22 +56,22 @@
                             <img src="" alt="" class="bg-black rounded-xl" style="width: 10vh; height: 10vh;">
                         {% endif %}
                         <div class="w-1/2 ml-2 h-24 flex flex-col justify-center font-bold text-gray-700">
-                            <h3>{{user.firstName|add:" "|add:user.lastName}}</h3>
-                            <h3 class="text-sm w-full">{{user.dept}}</h3>
+                            <p>{{user.firstName|add:" "|add:user.lastName}}</h3>
+                            <p class="text-sm w-full">{{user.dept}}</h3>
                         </div>
                     </div>
                     <div class="flex flex-col w-3/4 h-full mt-4 px-4">
                         <div class="w-full h-fit flex text-md text-gray-700">
-                            <h3 class="font-bold">Email:</h3>
-                            <h3 class="ml-1">{{user.stu_id}}</h3>
+                            <p class="font-bold">Email:</h3>
+                            <p class="ml-1">{{user.stu_id}}</h3>
                         </div>
                         <div class="w-full h-fit flex text-md text-gray-700">
-                            <h3 class="font-bold">Batch:</h3>
-                            <h3 class="ml-1">{{user.batch}}</h3>
+                            <p class="font-bold">Batch:</h3>
+                            <p class="ml-1">{{user.batch}}</h3>
                         </div>
                         <div class="w-full h-fit flex text-md text-gray-700">
-                            <h3 class="font-bold">Phone:</h3>
-                            <h3 class="ml-1">{{user.phone_number}}</h3>
+                            <p class="font-bold">Phone:</h3>
+                            <p class="ml-1">{{user.phone_number | default:"Not given"}}</h3>
                         </div>
                     </div>
                 </div>
